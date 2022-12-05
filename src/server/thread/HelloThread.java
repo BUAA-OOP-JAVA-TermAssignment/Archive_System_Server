@@ -1,4 +1,4 @@
-package server;
+package server.thread;
 
 import java.io.*;
 import java.net.Socket;
@@ -6,17 +6,17 @@ import java.net.Socket;
 /**
  * @author pcpas
  */
-public class ClientThread implements Runnable {
+public class HelloThread implements Runnable {
     private Socket socket;
 
-    public ClientThread(Socket socket) {
+    public HelloThread(Socket socket) {
         this.socket = socket;
 
     }
 
     @Override
     public void run() {
-        System.out.println(Thread.currentThread().getName());
+        System.out.println(Thread.currentThread().getName()+":");
         //获取输入流，回写给客户端
         OutputStream os = null;
         try {
@@ -27,7 +27,7 @@ public class ClientThread implements Runnable {
         assert os != null;
         //回写给客户端“hello client”
         PrintStream printStream = new PrintStream(os);
-        printStream.println("hello client");
+        printStream.println("Hello!");
         //获取客户端输出流
         InputStream is = null;
         try {
@@ -43,7 +43,5 @@ public class ClientThread implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //输出调试
-        System.out.println("服务端收到： " + text);
     }
 }

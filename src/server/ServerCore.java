@@ -1,13 +1,14 @@
 package server;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import server.thread.LoginThread;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.*;
 
-public class Core {
+public class ServerCore {
 
     private static final ThreadFactory namedThreadFactory = new ThreadFactoryBuilder()
             .setNameFormat("demo-pool-%d").build();
@@ -23,17 +24,16 @@ public class Core {
             new LinkedBlockingQueue<Runnable>(1024), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
 
     /**
-     * 运行此处开始程序
-     * @param args
+     * 开始接受客户端请求
      * @throws IOException
      */
-    public static void main(String[] args) throws IOException {
+    public static void runServer() throws IOException {
         ServerSocket serverSocket = new ServerSocket(8888);
         System.out.println("服务器socket创建成功");
 
         while (true) {
             Socket socket = serverSocket.accept();
-            POOL.execute(new ClientThread(socket));
+            POOL.execute(new LoginThread(socket));
         }
 
     }
