@@ -1,6 +1,10 @@
 package controller;
 
 import dao.domain.User;
+import message.AdminLoginMsg;
+import message.UserLoginFailMsg;
+import message.UserLoginMsg;
+import message.UserLoginSuccessMsg;
 import service.LoginService;
 
 /**
@@ -50,7 +54,7 @@ public class LoginController {
         boolean isReg = loginService.userRegister(user);
         if (isReg) {
             System.out.println("注册成功！");
-        }else {
+        } else {
             System.out.println("注册失败~");
         }
     }
@@ -58,31 +62,42 @@ public class LoginController {
     /**
      * 用户登录检查
      *
-     * @param username 账号
-     * @param password 密码
+     * @param um 来自客户端的登入消息
      */
-    public void userLoginCheck(String username, String password) {
-        boolean haveMatch = loginService.hasMatchUser(username, password);
-        if (haveMatch) {
-            System.out.println("Welcome,User!");
+    public void userLoginCheck(UserLoginMsg um) {
+        String username = um.getUsername();
+        String password = um.getPassword();
+        if (username != null && password != null) {
+            boolean haveMatch = loginService.hasMatchUser(username, password);
+            if (haveMatch) {
+                um.getThread().sendMsgBack(new UserLoginSuccessMsg());
+            } else {
+                um.getThread().sendMsgBack(new UserLoginFailMsg());
+            }
         } else {
-            System.out.println("User:Login Denied!");
+            um.getThread().sendMsgBack(new UserLoginFailMsg());
         }
+
     }
 
     /**
      * 管理员登录检查
      *
-     * @param username 账号
-     * @param password 密码
+     * @param am
      */
-    public void adminLoginCheck(String username, String password) {
+    public void adminLoginCheck(AdminLoginMsg am) {
 
-        boolean haveMatch = loginService.hasMatchAdmin(username, password);
-        if (haveMatch) {
-            System.out.println("Welcome，Admin!");
+        String username = am.getUsername();
+        String password = am.getPassword();
+        if (username != null && password != null) {
+            boolean haveMatch = loginService.hasMatchAdmin(username, password);
+            if (haveMatch) {
+                am.getThread().sendMsgBack(new UserLoginSuccessMsg());
+            } else {
+                am.getThread().sendMsgBack(new UserLoginFailMsg());
+            }
         } else {
-            System.out.println("Admin:Login Denied!");
+            am.getThread().sendMsgBack(new UserLoginFailMsg());
         }
     }
 

@@ -11,12 +11,11 @@ public class HelloThread implements Runnable {
 
     public HelloThread(Socket socket) {
         this.socket = socket;
-
     }
 
     @Override
     public void run() {
-        System.out.println(Thread.currentThread().getName()+":");
+        System.out.println(Thread.currentThread().getName() + ":");
         //获取输入流，回写给客户端
         OutputStream os = null;
         try {
