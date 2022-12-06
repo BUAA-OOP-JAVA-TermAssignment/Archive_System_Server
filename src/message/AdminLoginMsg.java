@@ -1,16 +1,14 @@
 package message;
 
-import controller.LoginController;
-
+/**
+ * @author pcpas
+ */
 public class AdminLoginMsg extends BaseMsg {
     String username = null;
     String password = null;
 
-    public void setUsername(String username) {
+    AdminLoginMsg(String username, String password) {
         this.username = username;
-    }
-
-    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -22,8 +20,4 @@ public class AdminLoginMsg extends BaseMsg {
         return password;
     }
 
-    @Override
-    public void execute() {
-        LoginController.getInstance().adminLoginCheck(this);
-    }
 }

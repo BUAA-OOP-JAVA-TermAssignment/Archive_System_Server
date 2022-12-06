@@ -1,7 +1,12 @@
 package server.thread;
 
 import dao.domain.User;
+import message.AdminLoginMsg;
 import message.BaseMsg;
+import message.UserLoginMsg;
+import request.AdminLoginRequst;
+import request.BaseRequst;
+import request.UserLoginRequst;
 
 import java.io.*;
 import java.net.Socket;
@@ -32,8 +37,10 @@ public class ClientThread implements Runnable {
 
     public void sendMsgBack(BaseMsg msg) {
         try {
+            System.out.println("返回报文！");
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             oos.writeObject(msg);
+            System.out.println("成功返回报文！");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -46,12 +53,23 @@ public class ClientThread implements Runnable {
                 //以message为单位不断接受客户端传来的数据
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                 BaseMsg msg = (BaseMsg) ois.readObject();
-                msg.setThread(this);
-                System.out.println("收到数据" + msg);
-                msg.execute();
+                System.out.println("成功收到报文！");
+                BaseRequst requst = msgToRequst(msg);
+                assert requst != null;
+                requst.execute();
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    private BaseRequst msgToRequst(BaseMsg msg) {
+        if (msg instanceof UserLoginMsg) {
+            System.out.println("成功解析报文！");
+            return new UserLoginRequst((UserLoginMsg) msg, this);
+        } else if (msg instanceof AdminLoginMsg) {
+            return new AdminLoginRequst((AdminLoginMsg) msg, this);
+        }
+        return null;
     }
 }

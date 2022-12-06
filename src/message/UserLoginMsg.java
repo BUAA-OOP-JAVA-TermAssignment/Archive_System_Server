@@ -1,18 +1,12 @@
 package message;
 
-import controller.LoginController;
-
 public class UserLoginMsg extends BaseMsg {
-
 
     String username = null;
     String password = null;
 
-    public void setUsername(String username) {
+    public UserLoginMsg(String username, String password) {
         this.username = username;
-    }
-
-    public void setPassword(String password) {
         this.password = password;
     }
 
@@ -24,8 +18,4 @@ public class UserLoginMsg extends BaseMsg {
         return password;
     }
 
-    @Override
-    public void execute() {
-        LoginController.getInstance().userLoginCheck(this);
-    }
 }

@@ -14,16 +14,7 @@ import java.net.Socket;
 public class HelloWorld {
 
     public static void main(String[] args) throws IOException {
-
         ServerCore.getMyServer().runServer();
 
-        //LoginController.getInstance().adminLoginCheck("pcpa", "123456");
-//
-//        User u = new User();
-//        u.setUserName("zzq");
-//        u.setPassword("123456");
-//        u.setEmail("qq@qq.com");
-        //LoginController.getInstance().userRegister(u);
-        //LoginController.getInstance().userLoginCheck("zzq", "123456");
     }
 }
