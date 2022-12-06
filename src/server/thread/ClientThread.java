@@ -1,7 +1,12 @@
 package server.thread;
 
 import dao.domain.User;
+import message.AdminLoginMsg;
 import message.BaseMsg;
+import message.UserLoginMsg;
+import request.AdminLoginRequst;
+import request.BaseRequst;
+import request.UserLoginRequst;
 
 import java.io.*;
 import java.net.Socket;
@@ -46,12 +51,21 @@ public class ClientThread implements Runnable {
                 //以message为单位不断接受客户端传来的数据
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                 BaseMsg msg = (BaseMsg) ois.readObject();
-                msg.setThread(this);
-                System.out.println("收到数据" + msg);
-                msg.execute();
+                BaseRequst requst = msgToRequst(msg);
+                assert requst != null;
+                requst.execute();
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    private BaseRequst msgToRequst(BaseMsg msg) {
+        if (msg instanceof UserLoginMsg) {
+            return new UserLoginRequst((UserLoginMsg) msg, this);
+        } else if (msg instanceof AdminLoginMsg) {
+            return new AdminLoginRequst((AdminLoginMsg) msg, this);
+        }
+        return null;
     }
 }
