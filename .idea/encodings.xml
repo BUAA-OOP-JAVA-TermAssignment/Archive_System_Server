@@ -4,6 +4,6 @@
     <file url="file://$PROJECT_DIR$/src/message/BaseMsg.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/server/thread/ClientThread.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/server/thread/WaitForClientThread.java" charset="UTF-8" />
-    <file url="PROJECT" charset="UTF-8" />
+    <file url="PROJECT" charset="GBK" />
   </component>
 </project>
