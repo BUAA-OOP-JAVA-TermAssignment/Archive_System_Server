@@ -69,6 +69,7 @@ public class LoginController {
         String password = um.getPassword();
         if (username != null && password != null) {
             boolean haveMatch = loginService.hasMatchUser(username, password);
+            System.out.println("成功查找到此人！");
             if (haveMatch) {
                 um.getThread().sendMsgBack(new SuccessMsg());
             } else {

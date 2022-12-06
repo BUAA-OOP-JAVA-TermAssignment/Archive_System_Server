@@ -14,7 +14,6 @@ import java.net.Socket;
 public class HelloWorld {
 
     public static void main(String[] args) throws IOException {
-
         ServerCore.getMyServer().runServer();
 
     }
