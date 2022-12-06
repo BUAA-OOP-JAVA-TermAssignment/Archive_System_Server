@@ -4,15 +4,23 @@ import java.util.Date;
 
 public class User {
     private int id;
-    private String password;
 
     private String userName;
+
+    private String password;
 
     private String email;
 
     private Integer status;
 
     private Date createTime;
+
+    public User(int id, String userName,String password,String email){
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+    }
 
     public int getId() {
         return id;

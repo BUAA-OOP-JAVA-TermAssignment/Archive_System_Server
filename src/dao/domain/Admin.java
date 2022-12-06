@@ -3,12 +3,18 @@ package dao.domain;
 public class Admin {
     private int id;
 
-    private String password;
-
     private String userName;
+
+    private String password;
 
     private String phone;
 
+    public Admin(int id, String userName, String password, String phone){
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
+        this.phone = phone;
+    }
 
     public int getId() {
         return id;
