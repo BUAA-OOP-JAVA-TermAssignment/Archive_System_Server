@@ -1,5 +1,6 @@
 package controller;
 
+import dao.domain.User;
 import service.LoginService;
 
 /**
@@ -12,6 +13,7 @@ public class LoginController {
     private LoginService loginService;
 
     private LoginController() {
+        setLoginService(new LoginService());
     }
 
     /**
@@ -30,19 +32,57 @@ public class LoginController {
         return lc;
     }
 
+    /**
+     * 设定LoginService
+     *
+     * @param ls login-service
+     */
     public void setLoginService(LoginService ls) {
         loginService = ls;
     }
 
-    public void adminLoginCheck(String account, String password) {
-        //实验用：
-        loginService = new LoginService();
+    /**
+     * 用户注册
+     *
+     * @param user 用户信息
+     */
+    public void userRegister(User user) {
+        boolean isReg = loginService.userRegister(user);
+        if (isReg) {
+            System.out.println("注册成功！");
+        }else {
+            System.out.println("注册失败~");
+        }
+    }
 
-        boolean haveMatch = loginService.hasMatchAdmin(account, password);
+    /**
+     * 用户登录检查
+     *
+     * @param username 账号
+     * @param password 密码
+     */
+    public void userLoginCheck(String username, String password) {
+        boolean haveMatch = loginService.hasMatchUser(username, password);
         if (haveMatch) {
-            System.out.println("Welcome!");
+            System.out.println("Welcome,User!");
         } else {
-            System.out.println("Login Denied!");
+            System.out.println("User:Login Denied!");
+        }
+    }
+
+    /**
+     * 管理员登录检查
+     *
+     * @param username 账号
+     * @param password 密码
+     */
+    public void adminLoginCheck(String username, String password) {
+
+        boolean haveMatch = loginService.hasMatchAdmin(username, password);
+        if (haveMatch) {
+            System.out.println("Welcome，Admin!");
+        } else {
+            System.out.println("Admin:Login Denied!");
         }
     }
 

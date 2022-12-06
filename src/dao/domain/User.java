@@ -3,22 +3,22 @@ package dao.domain;
 import java.util.Date;
 
 public class User {
-    private String id;
+    private int id;
     private String password;
 
     private String userName;
 
-    private String phone;
+    private String email;
 
     private Integer status;
 
     private Date createTime;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -38,12 +38,12 @@ public class User {
         this.userName = userName;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Integer getStatus() {

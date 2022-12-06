@@ -1,4 +1,5 @@
 import controller.LoginController;
+import dao.domain.User;
 import server.ServerCore;
 
 import java.io.IOException;
@@ -14,9 +15,15 @@ public class HelloWorld {
 
     public static void main(String[] args) throws IOException {
 
-        ServerCore.runServer();
+        //ServerCore.runServer();
 
         //LoginController.getInstance().adminLoginCheck("pcpa", "123456");
 
+        User u = new User();
+        u.setUserName("zzq");
+        u.setPassword("123456");
+        u.setEmail("qq@qq.com");
+        //LoginController.getInstance().userRegister(u);
+        LoginController.getInstance().userLoginCheck("zzq", "123456");
     }
 }
