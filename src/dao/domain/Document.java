@@ -1,5 +1,7 @@
 package dao.domain;
 
+import com.google.common.util.concurrent.AbstractIdleService;
+
 import java.util.Date;
 
 public class Document {
@@ -11,6 +13,17 @@ public class Document {
     private String language;
     private Date uploadDate;
     private int state;
+
+    public Document(){}
+    public Document(String Id, String name, String author, String publish, String introduction, String language, Date uploadDate){
+        this.Id = Id;
+        this.name = name;
+        this.author = author;
+        this.publish = publish;
+        this.introduction = introduction;
+        this.uploadDate = uploadDate;
+    }
+
 
     public void setId(String id) {
         this.Id = id;

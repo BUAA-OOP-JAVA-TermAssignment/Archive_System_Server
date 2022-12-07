@@ -22,7 +22,7 @@ public class UserDaoImpl implements UserDao {
     private static final String ADD_USER_SQL = "insert into user values(null,?,?,?)";
     private static final String EDIT_USER_SQL = "update admin set username=?,password=?,email=?where id=?";
     private static final String DELETE_USER_SQL = "delete from admin where id=?";
-    private static String LIST_USER_SQL = "select * from user";
+    private static final String LIST_USER_SQL = "select * from user";
     @Override
     public boolean addUser(User user) {
         return AddEdit(user, ADD_USER_SQL);

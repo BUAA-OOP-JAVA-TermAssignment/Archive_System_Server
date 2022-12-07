@@ -19,9 +19,9 @@ public class AdminDaoImpl implements AdminDao {
 
     private static final String MATCH_ADMIN_SQL = "select username,password from admin where username=? and password=?";
     private static final String ADD_ADMIN_SQL = "insert into admin values(null,?,?,?)";
-    private static String DELETE_ADMIN_SQL = "delete from admin where id=?";
-    private static String EDIT_ADMIN_SQL = "update admin set username=?,password=?,phone=?where id=?";
-    private static String LIST_ADMIN_SQL = "select * from admin";
+    private static final String DELETE_ADMIN_SQL = "delete from admin where id=?";
+    private static final String EDIT_ADMIN_SQL = "update admin set username=?,password=?,phone=?where id=?";
+    private static final String LIST_ADMIN_SQL = "select * from admin";
 
     @Override
     public boolean addAdmin(Admin admin) {
