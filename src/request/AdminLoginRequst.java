@@ -1,15 +1,14 @@
 package request;
 
 import controller.LoginController;
-import message.AdminLoginMsg;
-import message.UserLoginMsg;
+import message.AdminLoginRequestMsg;
 import server.thread.ClientThread;
 
 public class AdminLoginRequst extends BaseRequst {
 
-    AdminLoginMsg am;
+    AdminLoginRequestMsg am;
 
-    public AdminLoginRequst(AdminLoginMsg am, ClientThread ct) {
+    public AdminLoginRequst(AdminLoginRequestMsg am, ClientThread ct) {
         this.am = am;
         this.ct = ct;
     }

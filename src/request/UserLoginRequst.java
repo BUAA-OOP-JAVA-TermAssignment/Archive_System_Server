@@ -1,16 +1,14 @@
 package request;
 
 import controller.LoginController;
-import dao.domain.User;
-import message.AdminLoginMsg;
-import message.UserLoginMsg;
+import message.UserLoginRequestMsg;
 import server.thread.ClientThread;
 
 public class UserLoginRequst extends BaseRequst {
 
-    UserLoginMsg um;
+    UserLoginRequestMsg um;
 
-    public UserLoginRequst(UserLoginMsg um, ClientThread ct) {
+    public UserLoginRequst(UserLoginRequestMsg um, ClientThread ct) {
         this.um = um;
         this.ct = ct;
     }

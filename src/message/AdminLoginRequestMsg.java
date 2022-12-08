@@ -3,11 +3,11 @@ package message;
 /**
  * @author pcpas
  */
-public class AdminLoginMsg extends BaseMsg {
+public class AdminLoginRequestMsg extends BaseMsg {
     String username = null;
     String password = null;
 
-    AdminLoginMsg(String username, String password) {
+    AdminLoginRequestMsg(String username, String password) {
         this.username = username;
         this.password = password;
     }

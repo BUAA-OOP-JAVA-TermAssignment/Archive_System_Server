@@ -1,11 +1,11 @@
 package message;
 
-public class UserLoginMsg extends BaseMsg {
+public class UserLoginRequestMsg extends BaseMsg {
 
     String username = null;
     String password = null;
 
-    public UserLoginMsg(String username, String password) {
+    public UserLoginRequestMsg(String username, String password) {
         this.username = username;
         this.password = password;
     }

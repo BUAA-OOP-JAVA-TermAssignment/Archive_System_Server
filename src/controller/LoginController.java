@@ -1,8 +1,8 @@
 package controller;
 
 import dao.domain.User;
-import message.FailMsg;
-import message.SuccessMsg;
+import message.LoginReturnMsg;
+import message.AdminArchiveEditMsg;
 import request.AdminLoginRequst;
 import request.UserLoginRequst;
 import service.LoginService;
@@ -65,18 +65,19 @@ public class LoginController {
      * @param um 来自客户端的登入消息
      */
     public void userLoginCheck(UserLoginRequst um) {
+        //TODO:这里返回值需要修改！
         String username = um.getUsername();
         String password = um.getPassword();
         if (username != null && password != null) {
             boolean haveMatch = loginService.hasMatchUser(username, password);
             System.out.println("成功查找到此人！");
             if (haveMatch) {
-                um.getThread().sendMsgBack(new SuccessMsg());
+                um.getThread().sendMsgBack(new LoginReturnMsg());
             } else {
-                um.getThread().sendMsgBack(new FailMsg());
+                um.getThread().sendMsgBack(new LoginReturnMsg());
             }
         } else {
-            um.getThread().sendMsgBack(new FailMsg());
+            um.getThread().sendMsgBack(new LoginReturnMsg());
         }
 
     }
@@ -87,18 +88,18 @@ public class LoginController {
      * @param am
      */
     public void adminLoginCheck(AdminLoginRequst am) {
-
+        //TODO:这里返回值需要修改！
         String username = am.getUsername();
         String password = am.getPassword();
         if (username != null && password != null) {
             boolean haveMatch = loginService.hasMatchAdmin(username, password);
             if (haveMatch) {
-                am.getThread().sendMsgBack(new SuccessMsg());
+                am.getThread().sendMsgBack(new LoginReturnMsg());
             } else {
-                am.getThread().sendMsgBack(new FailMsg());
+                am.getThread().sendMsgBack(new LoginReturnMsg());
             }
         } else {
-            am.getThread().sendMsgBack(new FailMsg());
+            am.getThread().sendMsgBack(new LoginReturnMsg());
         }
     }
 
