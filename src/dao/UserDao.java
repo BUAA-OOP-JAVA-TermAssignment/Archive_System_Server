@@ -14,7 +14,7 @@ public interface UserDao {
     public boolean addUser(User user);
 
     /**
-     * 根据用户的id删除一个用户
+     * 根据用户的id删除一个用户--此接口不单独调用仅实现删除需调用deleteUsers接口
      *
      * @param id 用户id
      * @return true 成功 false 失败
@@ -45,5 +45,11 @@ public interface UserDao {
      */
     public boolean getMatchUser(String username, String password);
 
-
+    /**
+     * 批量删除用户
+     *
+     * @param userIdList
+     * @return true 成功 false 失败
+     */
+    public boolean deleteUsers(List<Integer> userIdList);
 }

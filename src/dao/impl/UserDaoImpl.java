@@ -102,4 +102,14 @@ public class UserDaoImpl implements UserDao {
         }
         return false;
     }
+
+    @Override
+    public boolean deleteUsers(List<Integer> userIdList) {
+        for(Integer id : userIdList){
+            if(!deleteUser(id)){
+                return false;
+            }
+        }
+        return true;
+    }
 }

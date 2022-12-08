@@ -103,6 +103,14 @@ public class AdminDaoImpl implements AdminDao {
         return false;
     }
 
-
+    @Override
+    public boolean deleteAdmins(List<Integer> adminIdList){
+        for(Integer id : adminIdList){
+            if(!deleteAdmin(id)){
+                return false;
+            }
+        }
+        return true;
+    }
 
 }

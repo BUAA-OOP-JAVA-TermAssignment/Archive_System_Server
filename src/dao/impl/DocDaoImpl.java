@@ -129,8 +129,12 @@ public class DocDaoImpl implements DocDao {
         return result;
     }
 
-    @Override
-    public Document findByBno(Document bean) {
-        return null;
+    public boolean deleteDocuments(List<Document> documentList){
+        for(Document bean : documentList){
+            if(!delete(bean)){
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -17,5 +17,5 @@ public interface DocDao {
 
     Document findById(Document bean);
 
-    Document findByBno(Document bean);
+    boolean deleteDocuments(List<Document> documentList);
 }

@@ -15,7 +15,7 @@ public interface AdminDao {
     public boolean addAdmin(Admin admin);
 
     /**
-     * 根据用户的id删除一个管理员
+     * 根据用户的id删除一个管理员--此接口不单独调用仅实现删除需调用deleteAdmins接口
      *
      * @param id 管理员id
      * @return true 成功 false 失败
@@ -44,4 +44,12 @@ public interface AdminDao {
      * @return true 存在 false 不存在
      */
     public boolean getMatchAdmin(String username, String password);
+
+    /**
+     * 批量删除用户
+     *
+     * @param adminIdList 批量删除管理员
+     * @return true 成功 false 失败
+     */
+    public boolean deleteAdmins(List<Integer> adminIdList);
 }
