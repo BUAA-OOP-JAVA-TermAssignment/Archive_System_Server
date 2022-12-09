@@ -19,7 +19,7 @@ public interface UserDao {
      * @param id 用户id
      * @return true 成功 false 失败
      */
-    public boolean deleteUser(int id);
+    public boolean deleteUser(String id);
 
     /**
      * 编辑用户信息
@@ -51,5 +51,5 @@ public interface UserDao {
      * @param userIdList
      * @return true 成功 false 失败
      */
-    public boolean deleteUsers(List<Integer> userIdList);
+    public boolean deleteUsers(List<String> userIdList);
 }

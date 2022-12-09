@@ -54,9 +54,9 @@ public class ClientThread implements Runnable {
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                 BaseMsg msg = (BaseMsg) ois.readObject();
                 System.out.println("成功收到报文！");
-                BaseRequst requst = msgToRequst(msg);
-                assert requst != null;
-                requst.execute();
+                BaseRequst request = msgToRequst(msg);
+                assert request != null;
+                request.execute();
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();

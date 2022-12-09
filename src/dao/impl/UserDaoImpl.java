@@ -19,7 +19,7 @@ public class UserDaoImpl implements UserDao {
     private static ResultSet rs = null;
 
     private static final String MATCH_USER_SQL = "select username,password from user where username=? and password=?";
-    private static final String ADD_USER_SQL = "insert into user values(null,?,?,?)";
+    private static final String ADD_USER_SQL = "insert into user values(?,?,?,?)";
     private static final String EDIT_USER_SQL = "update admin set username=?,password=?,email=?where id=?";
     private static final String DELETE_USER_SQL = "delete from admin where id=?";
     private static final String LIST_USER_SQL = "select * from user";
@@ -51,12 +51,12 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean deleteUser(int id) {
+    public boolean deleteUser(String id) {
         cn = DBUtil.getConnection();
         try {
             assert cn != null;
             ps = cn.prepareStatement(DELETE_USER_SQL);
-            ps.setInt(1, id);
+            ps.setString(1, id);
             int result = ps.executeUpdate();
             DBUtil.close(null, ps, cn);
         }catch (SQLException e){
@@ -75,7 +75,7 @@ public class UserDaoImpl implements UserDao {
             ps = cn.prepareStatement(LIST_USER_SQL);
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new User(rs.getInt(1), rs.getString(2),rs.getString(3), rs.getString(4)));
+                list.add(new User(rs.getString(1), rs.getString(2),rs.getString(3), rs.getString(4)));
                 //放到集合中
             }
         }catch (SQLException e){
@@ -104,8 +104,8 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean deleteUsers(List<Integer> userIdList) {
-        for(Integer id : userIdList){
+    public boolean deleteUsers(List<String> userIdList) {
+        for(String id : userIdList){
             if(!deleteUser(id)){
                 return false;
             }

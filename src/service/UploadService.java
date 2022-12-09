@@ -7,8 +7,13 @@ import java.io.IOException;
 
 public class UploadService {
 
+    /**
+     * 直接上传PDF文件，不经过DAO层，文件路径为固定统一路径 C:BookManager/
+     * @param file
+     * @return
+     */
     public boolean hasUploadFile(File file){
-        //TODO:传文档是否应该为DAO层去做？
+
         return false;
     }
 

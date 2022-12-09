@@ -3,7 +3,7 @@ package message;
 import java.io.File;
 
 public class UploadRequestMsg {
-    File file = null;
+    File file;
     public UploadRequestMsg(File file){
         this.file = file;
     }
