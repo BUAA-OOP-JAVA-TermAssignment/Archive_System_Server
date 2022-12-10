@@ -8,8 +8,8 @@ public class ModifyUserInfoRequest extends BaseRequst {
     ModifyUserInfo mi;
 
     public ModifyUserInfoRequest(ModifyUserInfo mi, ClientThread ct){
+        super(ct);
         this.mi = mi;
-        this.ct = ct;
     }
 
     public String getId(){return mi.getId();}

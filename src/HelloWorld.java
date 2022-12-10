@@ -39,7 +39,7 @@ public class HelloWorld {
             String ab = "我爱JAVA，特别是JAVA 1." + i;
             String language = "中文";
             String path = "D:\\Archive_System\\origin_pdfs\\EX_000" + i + ".pdf";
-            Document doc = new Document(id, name, author, publisher, ab, language, new Date(), 0);
+            Document doc = new Document(id, name, author, publisher, ab, language, new Date().toString(), 0);
             UploadController.getInstance().saveDocument(doc, path);
         }
     }

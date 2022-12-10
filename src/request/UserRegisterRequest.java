@@ -13,8 +13,8 @@ public class UserRegisterRequest extends BaseRequst{
 
 
     public UserRegisterRequest(UserRegisterRequestMsg um, ClientThread ct) {
+        super(ct);
         this.um = um;
-        this.ct = ct;
     }
 
     public String getName(){return um.getName();}
