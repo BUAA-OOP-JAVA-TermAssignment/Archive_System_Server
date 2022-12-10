@@ -1,5 +1,12 @@
 package message;
 
+/**
+ * 发送搜索请求，返回搜索结果
+ * 如果搜索内容为空，则返回推荐内容
+ *
+ * @author : AkashiSensei
+ * &#064;date  : 2022/12/8 20:21
+ */
 public class SearchRequestMsg extends BaseMsg{
     private final String searchText;
     private final int offset;

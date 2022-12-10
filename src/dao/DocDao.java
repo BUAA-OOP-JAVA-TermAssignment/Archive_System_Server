@@ -24,32 +24,32 @@ public interface DocDao {
     /**
      * 删除文档
      *
-     * @param bean
+     * @param id
      * @return
      */
-    boolean delete(Document bean);
+    boolean delete(String id);
 
     /**
      * 批量查找文档
      *
-     * @param bean
+     * @param idList
      * @return
      */
-    List<Document> find(Document bean);
+    List<Document> findById(List<String> idList);
 
     /**
      * 根据ID查找文档
      *
-     * @param bean
+     * @param id
      * @return
      */
-    Document findById(Document bean);
+    Document findById(String id);
 
     /**
-     * 批量删除文档
+     * 根据ID批量删除文档
      *
-     * @param documentList
+     * @param idList
      * @return
      */
-    boolean deleteDocuments(List<Document> documentList);
+    boolean deleteDocuments(List<String> idList);
 }

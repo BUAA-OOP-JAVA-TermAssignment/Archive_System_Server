@@ -57,16 +57,9 @@ public class LuceneCore {
         // 每次新建索引都会覆盖原来的索引
         config.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
 
-        // 使用了BM25SimilarityOriginal来存储原始值
-        //config.setSimilarity(new BM25SimilarityOriginal());
-
         IndexWriter ixwriter = new IndexWriter(dir, config);
 
-        //ixwriter.deleteAll();
-
-
         //metadata field (no tokenization, searchable, and stored).
-
         FieldType fieldTypeMetadata = new FieldType();
         fieldTypeMetadata.setOmitNorms(true);
         fieldTypeMetadata.setIndexOptions(IndexOptions.DOCS);
@@ -127,9 +120,9 @@ public class LuceneCore {
             // 4、创建搜索的Query
             Analyzer analyzer = new IKAnalyzer4Lucene9();
 
-            String[] fields = {"name", "content", "author", "introduction"};
+            String[] fields = {"name", "content", "author"};
             // MUST 表示and，MUST_NOT 表示not ，SHOULD表示or
-            BooleanClause.Occur[] clauses = {BooleanClause.Occur.SHOULD, BooleanClause.Occur.SHOULD, BooleanClause.Occur.SHOULD, BooleanClause.Occur.SHOULD};
+            BooleanClause.Occur[] clauses = {BooleanClause.Occur.SHOULD, BooleanClause.Occur.SHOULD, BooleanClause.Occur.SHOULD};
             // MultiFieldQueryParser表示多个域解析， 同时可以解析含空格的字符串，如果我们搜索"上海 中国"
             Query multiFieldQuery = MultiFieldQueryParser.parse(keyWord, fields, clauses, analyzer);
 

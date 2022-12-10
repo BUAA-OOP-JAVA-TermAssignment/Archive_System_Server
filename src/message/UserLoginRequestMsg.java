@@ -1,6 +1,12 @@
 package message;
 
-public class UserLoginRequestMsg extends BaseMsg {
+/**
+ * 用户登陆时向主机发送的请求
+ *
+ * @author : AkashiSensei
+ * &#064;date  : 2022/12/8 20:19
+ */
+public class UserLoginRequestMsg extends BaseMsg{
     public static final int GUEST = 1, ADMIN = 2;
     private int userType;
     private String id;
@@ -31,5 +37,4 @@ public class UserLoginRequestMsg extends BaseMsg {
     public String getPassword() {
         return password;
     }
-
 }

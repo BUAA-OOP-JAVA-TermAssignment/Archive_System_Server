@@ -5,6 +5,9 @@ import java.util.Date;
 
 /**
  * 管理员编辑文档的操作消息
+ *
+ * @author : AkashiSensei
+ * @date : 2022/12/8 21:00
  */
 public class AdminArchiveEditMsg extends BaseMsg{
     public static final int REQUEST_INFO = 0;

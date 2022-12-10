@@ -1,7 +1,12 @@
 package message;
 
-import static message.BaseMsg.REGISTER;
-
+/**
+ * 登录请求信息，包含姓名，id，密码，邮箱
+ * 返回成功与否即可
+ *
+ * @author : AkashiSensei
+ * &#064;date  : 2022/12/8 20:20
+ */
 public class UserRegisterRequestMsg extends BaseMsg{
     private final String name;
     private final String id;

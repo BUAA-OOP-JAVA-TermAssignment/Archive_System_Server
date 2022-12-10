@@ -1,5 +1,14 @@
 package message;
 
+/**
+ * 用户修改自己的个人信息时发送的数据。
+ * 用户修改个人信息之前，将会有密码重新输入的要求，但这时应用将用户输入的密码与本地保存的密码比对，不需要访问服务器
+ * 发送的数据将包括新的密码，用户邮箱，也可以包括用户下载数量。
+ * 相应的返回消息是成功与否，以及发生错误的类型。
+ *
+ * @author : AkashiSensei
+ * @date : 2022/12/8 20:53
+ */
 public class ModifyUserInfo extends BaseMsg{
     private final String id;
     private final String password;
