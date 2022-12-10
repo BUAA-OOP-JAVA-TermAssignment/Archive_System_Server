@@ -42,6 +42,11 @@ public class LuceneCore {
 
     static final String PATH_INDEX = "D:\\Archive_System\\example_index_lucene";
 
+    /**
+     * 通过本地存放的文档来建立Lucene索引
+     *
+     * @throws IOException
+     */
     public void buildIndex() throws IOException {
         //欲输入的数据路径和索引表的存放路径
         Directory dir = FSDirectory.open(new File(LuceneCore.PATH_INDEX).toPath());
@@ -105,6 +110,11 @@ public class LuceneCore {
         dir.close();
     }
 
+    /**
+     * 通过关键词搜索
+     *
+     * @param keyWord
+     */
     public void search(String keyWord) {
         DirectoryReader directoryReader = null;
         try {

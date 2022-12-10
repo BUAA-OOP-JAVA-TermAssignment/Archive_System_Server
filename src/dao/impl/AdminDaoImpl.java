@@ -23,10 +23,16 @@ public class AdminDaoImpl implements AdminDao {
     private static final String EDIT_ADMIN_SQL = "update admin set username=?,password=?,phone=?where id=?";
     private static final String LIST_ADMIN_SQL = "select * from admin";
 
+    /**
+     * 添加管理员
+     *
+     * @param admin 管理员信息
+     * @return
+     */
     @Override
     public boolean addAdmin(Admin admin) {
         cn = DBUtil.getConnection();
-        try{
+        try {
             assert cn != null;
             ps = cn.prepareStatement(ADD_ADMIN_SQL);
             ps.setString(1, admin.getId());
@@ -35,17 +41,24 @@ public class AdminDaoImpl implements AdminDao {
             ps.setString(4, admin.getEmail());
             int result = ps.executeUpdate();
             DBUtil.close(null, ps, cn);
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
         return true;
     }
 
+
+    /**
+     * 编辑管理员信息
+     *
+     * @param admin 管理员信息
+     * @return
+     */
     @Override
     public boolean editAdmin(Admin admin) {
         cn = DBUtil.getConnection();
-        try{
+        try {
             assert cn != null;
             ps = cn.prepareStatement(EDIT_ADMIN_SQL);
             ps.setString(1, admin.getUserName());
@@ -54,13 +67,20 @@ public class AdminDaoImpl implements AdminDao {
             ps.setString(4, admin.getId());
             int result = ps.executeUpdate();
             DBUtil.close(null, ps, cn);
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
         return true;
     }
 
+
+    /**
+     * 删除管理员
+     *
+     * @param id 管理员id
+     * @return
+     */
     public boolean deleteAdmin(int id) {
         cn = DBUtil.getConnection();
         try {
@@ -69,32 +89,45 @@ public class AdminDaoImpl implements AdminDao {
             ps.setInt(1, id);
             int result = ps.executeUpdate();
             DBUtil.close(null, ps, cn);
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
         return true;
     }
 
+
+    /**
+     * 获取所有管理员
+     *
+     * @return
+     */
     @Override
     public List<Admin> getAllAdmin() {
         List<Admin> list = new ArrayList<>();
         cn = DBUtil.getConnection();
-        try{
+        try {
             assert cn != null;
             ps = cn.prepareStatement(LIST_ADMIN_SQL);
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new Admin(rs.getString(1), rs.getString(2),rs.getString(3), rs.getString(4), rs.getString(5)));
+                list.add(new Admin(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
                 //放到集合中
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
         return list;
     }
 
+    /**
+     * 返回匹配的管理员
+     *
+     * @param id       账号
+     * @param password 密码
+     * @return
+     */
     @Override
     public Admin getMatchAdmin(String id, String password) {
         cn = DBUtil.getConnection();
@@ -113,10 +146,16 @@ public class AdminDaoImpl implements AdminDao {
         return null;
     }
 
+    /**
+     * 批量删除管理员
+     *
+     * @param adminIdList 批量删除管理员
+     * @return
+     */
     @Override
-    public boolean deleteAdmins(List<Integer> adminIdList){
-        for(Integer id : adminIdList){
-            if(!deleteAdmin(id)){
+    public boolean deleteAdmins(List<Integer> adminIdList) {
+        for (Integer id : adminIdList) {
+            if (!deleteAdmin(id)) {
                 return false;
             }
         }

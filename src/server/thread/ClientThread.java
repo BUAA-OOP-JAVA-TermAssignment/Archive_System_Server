@@ -31,6 +31,11 @@ public class ClientThread implements Runnable {
         this.socket = socket;
     }
 
+    /**
+     * 向客户端发送报文
+     *
+     * @param msg
+     */
     public void sendMsgBack(BaseMsg msg) {
         try {
             System.out.println("返回报文！");
@@ -68,6 +73,9 @@ public class ClientThread implements Runnable {
     }
 
 
+    /**
+     * 一个线程代表一个客户端
+     */
     @Override
     public void run() {
         try {
@@ -85,6 +93,12 @@ public class ClientThread implements Runnable {
         }
     }
 
+    /**
+     * 将msg转换为交由服务端处理的请求
+     *
+     * @param msg
+     * @return
+     */
     private BaseRequst msgToRequst(BaseMsg msg) {
 
         switch (msg.getMsgCode()) {
@@ -92,7 +106,7 @@ public class ClientThread implements Runnable {
                 System.out.println("成功解析报文3！");
                 return new UserLoginRequst((UserLoginRequestMsg) msg, this);
             }
-            case BaseMsg.DOWNLOAD_FILE_REQUEST ->{
+            case BaseMsg.DOWNLOAD_FILE_REQUEST -> {
                 System.out.println("receive downloadMsg!");
                 return new DownloadRequest((DownloadRequestMsg) msg, this);
             }
@@ -104,8 +118,9 @@ public class ClientThread implements Runnable {
                 System.out.println("成功解析报文7！");
                 return new ModifyUserInfoRequest((ModifyUserInfo) msg, this);
             }
+            default -> {
+                return null;
+            }
         }
-
-        return null;
     }
 }

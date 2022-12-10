@@ -20,6 +20,8 @@ public class Document {
     }
 
     /**
+     * Document的不含content构造，content默认为null
+     *
      * @param Id
      * @param name
      * @param author
@@ -42,6 +44,8 @@ public class Document {
     }
 
     /**
+     * Document的含content构造
+     *
      * @param Id
      * @param name
      * @param author

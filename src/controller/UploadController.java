@@ -15,12 +15,18 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 
+/**
+ * @author pcpas
+ */
 public class UploadController {
 
     private static UploadController uc;
 
     private UploadService uploadService;
 
+    /**
+     * 服务器存放pdf文件的地址
+     */
     private static final String FILE_SAVE_PATH = "D:\\Archive_System\\origin_pdfs";
 
     private UploadController() {

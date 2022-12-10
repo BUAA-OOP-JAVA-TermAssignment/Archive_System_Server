@@ -77,7 +77,7 @@ public class LoginController {
         String id = um.getId();
         String password = um.getPassword();
         if (id != null && password != null) {
-            if(userType == 1){
+            if (userType == 1) {
                 User user = loginService.hasMatchUser(id, password);
                 if (user != null) {
                     System.out.println("成功查找到此人！");
@@ -86,8 +86,7 @@ public class LoginController {
                     System.out.println("没有匹配！");
                     um.getThread().sendMsgBack(new BaseMsg(BaseMsg.UNDEFINED_FAILED));
                 }
-            }
-            else if(userType == 2){
+            } else if (userType == 2) {
                 Admin admin = loginService.hasMatchAdmin(id, password);
                 System.out.println("成功查找到此人！");
                 if (admin != null) {
@@ -95,8 +94,7 @@ public class LoginController {
                 } else {
                     um.getThread().sendMsgBack(new BaseMsg(BaseMsg.UNDEFINED_FAILED));
                 }
-            }
-            else {
+            } else {
                 um.getThread().sendMsgBack(new BaseMsg(BaseMsg.UNDEFINED_FAILED));
             }
         } else {

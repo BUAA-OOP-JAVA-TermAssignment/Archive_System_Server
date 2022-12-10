@@ -11,12 +11,14 @@ public class ModifyUserInfoController {
 
     private ModifyUserInfoService modifyUserInfoService;
 
-    private ModifyUserInfoController(){setModifyUserInfoService(new ModifyUserInfoService());}
+    private ModifyUserInfoController() {
+        setModifyUserInfoService(new ModifyUserInfoService());
+    }
 
-    public static ModifyUserInfoController getInstance(){
-        if(mc == null){
+    public static ModifyUserInfoController getInstance() {
+        if (mc == null) {
             synchronized (ModifyUserInfoController.class) {
-                if (mc == null){
+                if (mc == null) {
                     mc = new ModifyUserInfoController();
                 }
             }
@@ -24,22 +26,22 @@ public class ModifyUserInfoController {
         return mc;
     }
 
-    public void setModifyUserInfoService(ModifyUserInfoService ms){
+    public void setModifyUserInfoService(ModifyUserInfoService ms) {
         modifyUserInfoService = ms;
     }
 
-    public void userModifyUserInfo(ModifyUserInfoRequest mm){
+    public void userModifyUserInfo(ModifyUserInfoRequest mm) {
         String id = mm.getId();
         String password = mm.getPassword();
         String email = mm.getEmail();
         int downloadCnt = mm.getDownloadCnt();
-        if (id != null && password != null && email != null){
+        if (id != null && password != null && email != null) {
             System.out.println("userModifyUserInfo");
             boolean isModify = ModifyUserInfoService.hasModify(id, password, email, downloadCnt);
-            if (isModify){
+            if (isModify) {
                 System.out.println("Modify Success");
                 mm.getThread().sendMsgBack(new BaseMsg(BaseMsg.SUCCESS));
-            }else {
+            } else {
                 System.out.println("Modify Failed");
                 mm.getThread().sendMsgBack(new BaseMsg(BaseMsg.UNDEFINED_FAILED));
             }

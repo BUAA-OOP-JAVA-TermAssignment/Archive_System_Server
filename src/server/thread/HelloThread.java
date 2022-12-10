@@ -4,6 +4,8 @@ import java.io.*;
 import java.net.Socket;
 
 /**
+ * 一个测试类
+ *
  * @author pcpas
  */
 public class HelloThread implements Runnable {

@@ -15,7 +15,17 @@ public class User {
 
     private String time;
 
-    public User(String id, String userName,String password,String email ,int downloadCnt, String time){
+    /**
+     * 用户的实体
+     *
+     * @param id
+     * @param userName
+     * @param password
+     * @param email
+     * @param downloadCnt
+     * @param time
+     */
+    public User(String id, String userName, String password, String email, int downloadCnt, String time) {
         this.id = id;
         this.userName = userName;
         this.password = password;

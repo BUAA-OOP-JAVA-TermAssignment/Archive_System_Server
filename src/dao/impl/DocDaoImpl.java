@@ -20,6 +20,11 @@ public class DocDaoImpl implements DocDao {
     private static final String EDIT_DOC_SQL = "update Document set name=?, author=?, publish=?, introduction=?, language=?";
     private static final String LIST_DOC_SQL = "select * from Document where name like ? or introduction like ?";
 
+    /**
+     * 添加文档
+     * @param bean
+     * @return
+     */
     @Override
     public boolean add(Document bean) {
         if (bean.getContent() == null) {
@@ -48,6 +53,11 @@ public class DocDaoImpl implements DocDao {
         return true;
     }
 
+    /**
+     * 更新文档信息
+     * @param bean
+     * @return
+     */
     @Override
     public boolean update(Document bean) {
         cn = DBUtil.getConnection();
@@ -69,6 +79,11 @@ public class DocDaoImpl implements DocDao {
     }
 
 
+    /**
+     * 删除文档
+     * @param bean
+     * @return
+     */
     @Override
     public boolean delete(Document bean) {
         cn = DBUtil.getConnection();
@@ -85,6 +100,11 @@ public class DocDaoImpl implements DocDao {
         return true;
     }
 
+    /**
+     *寻找文档 意义不明
+     * @param bean
+     * @return
+     */
     @Override
     public List<Document> find(Document bean) {
         List<Document> list = new ArrayList<>();
@@ -103,6 +123,11 @@ public class DocDaoImpl implements DocDao {
         return list;
     }
 
+    /**
+     * 通过ID寻找文档 意义不明
+     * @param bean
+     * @return
+     */
     @Override
     public Document findById(Document bean) {
         cn = DBUtil.getConnection();
@@ -129,6 +154,11 @@ public class DocDaoImpl implements DocDao {
         return result;
     }
 
+    /**
+     * 批量删除文档
+     * @param documentList
+     * @return
+     */
     public boolean deleteDocuments(List<Document> documentList) {
         for (Document bean : documentList) {
             if (!delete(bean)) {

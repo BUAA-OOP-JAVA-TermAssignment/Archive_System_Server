@@ -20,6 +20,13 @@ public class UserDaoImpl implements UserDao {
     private static final String EDIT_USER_SQL = "update user set password=?,email=?,downloadCnt=? where id=?";
     private static final String DELETE_USER_SQL = "delete from user where id=?";
     private static final String LIST_USER_SQL = "select * from user";
+
+    /**
+     * 添加用户
+     *
+     * @param user 用户信息
+     * @return
+     */
     @Override
     public boolean addUser(User user) {
         cn = DBUtil.getConnection();
@@ -41,6 +48,15 @@ public class UserDaoImpl implements UserDao {
         return true;
     }
 
+    /**
+     * 编辑用户信息
+     *
+     * @param id
+     * @param password
+     * @param email
+     * @param downloadCnt
+     * @return
+     */
     @Override
     public boolean editUser(String id, String password, String email, int downloadCnt) {
         System.out.println(id);
@@ -61,7 +77,12 @@ public class UserDaoImpl implements UserDao {
         return true;
     }
 
-
+    /**
+     * 通过id删除用户
+     *
+     * @param id 用户id
+     * @return
+     */
     @Override
     public boolean deleteUser(String id) {
         cn = DBUtil.getConnection();
@@ -71,32 +92,44 @@ public class UserDaoImpl implements UserDao {
             ps.setString(1, id);
             int result = ps.executeUpdate();
             DBUtil.close(null, ps, cn);
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
         return true;
     }
 
+    /**
+     * 获取全部用户
+     *
+     * @return
+     */
     @Override
     public List<User> getAllUser() {
         List<User> list = new ArrayList<>();
         cn = DBUtil.getConnection();
-        try{
+        try {
             assert cn != null;
             ps = cn.prepareStatement(LIST_USER_SQL);
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new User(rs.getString(1), rs.getString(2),rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6)));
+                list.add(new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6)));
                 //放到集合中
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
         return list;
     }
 
+    /**
+     * 获取匹配的用户
+     *
+     * @param id       账号
+     * @param password 密码
+     * @return
+     */
     @Override
     public User getMatchUser(String id, String password) {
         cn = DBUtil.getConnection();
@@ -115,10 +148,16 @@ public class UserDaoImpl implements UserDao {
         return null;
     }
 
+    /**
+     * 通过ID批量删除用户
+     *
+     * @param userIdList
+     * @return
+     */
     @Override
     public boolean deleteUsers(List<String> userIdList) {
-        for(String id : userIdList){
-            if(!deleteUser(id)){
+        for (String id : userIdList) {
+            if (!deleteUser(id)) {
                 return false;
             }
         }

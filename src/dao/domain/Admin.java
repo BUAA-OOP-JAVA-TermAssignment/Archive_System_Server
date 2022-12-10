@@ -13,7 +13,16 @@ public class Admin {
 
     private String time;
 
-    public Admin(String id, String userName, String password, String email, String time){
+    /**
+     * 管理员的实体
+     *
+     * @param id
+     * @param userName
+     * @param password
+     * @param email
+     * @param time
+     */
+    public Admin(String id, String userName, String password, String email, String time) {
         this.id = id;
         this.userName = userName;
         this.password = password;
@@ -45,13 +54,14 @@ public class Admin {
         this.email = email;
     }
 
-    public String getTime(){
+    public String getTime() {
         return time;
     }
 
-    public void setTime(String time){
+    public void setTime(String time) {
         this.time = time;
     }
+
     public String getUserName() {
         return userName;
     }

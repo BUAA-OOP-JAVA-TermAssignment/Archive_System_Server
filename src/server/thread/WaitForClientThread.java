@@ -7,6 +7,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
+ * 等待client的连接
+ *
  * @author pcpas
  */
 public class WaitForClientThread extends Thread {
