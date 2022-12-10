@@ -32,18 +32,5 @@ public class UploadController {
      */
     public void uploadFile(UploadRequst um) {
         //TODO:这里返回值需要修改！
-        File file = um.getFile();
-        if(file != null){
-            boolean haveUpload = uploadService.hasUploadFile(file);
-            if(haveUpload){
-                um.getThread().sendMsgBack(new UploadReturnMsg());
-            }
-            else{
-                um.getThread().sendMsgBack(new UploadReturnMsg());
-            }
-        }
-        else{
-            um.getThread().sendMsgBack(new UploadReturnMsg());
-        }
     }
 }
