@@ -1,12 +1,8 @@
 package server.thread;
 
 import dao.domain.User;
-import message.BaseMsg;
-import message.DownloadRequestMsg;
-import message.UserLoginRequestMsg;
-import request.BaseRequst;
-import request.DownloadRequest;
-import request.UserLoginRequst;
+import message.*;
+import request.*;
 
 import java.io.*;
 import java.net.Socket;
@@ -92,12 +88,22 @@ public class ClientThread implements Runnable {
     private BaseRequst msgToRequst(BaseMsg msg) {
 
         switch (msg.getMsgCode()) {
-            case BaseMsg.LOGIN:
+            case BaseMsg.LOGIN -> {
+                System.out.println("成功解析报文3！");
                 return new UserLoginRequst((UserLoginRequestMsg) msg, this);
-            case BaseMsg.DOWNLOAD_FILE_REQUEST:
+            }
+            case BaseMsg.DOWNLOAD_FILE_REQUEST ->{
                 System.out.println("receive downloadMsg!");
                 return new DownloadRequest((DownloadRequestMsg) msg, this);
-            default:
+            }
+            case BaseMsg.REGISTER -> {
+                System.out.println("成功解析报文4！");
+                return new UserRegisterRequest((UserRegisterRequestMsg) msg, this);
+            }
+            case BaseMsg.MODIFY_USER_INFO -> {
+                System.out.println("成功解析报文7！");
+                return new ModifyUserInfoRequest((ModifyUserInfo) msg, this);
+            }
         }
 
         return null;

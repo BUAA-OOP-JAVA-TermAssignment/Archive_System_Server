@@ -11,7 +11,8 @@ public class AdminArchiveEditMsg extends BaseMsg{
     private final int adminArchiveEditCode;
     //TODO:还没有设计具体包含什么
 
-    private ArrayList<Book> bookArrayList;
+    Book book;
+
     class Book{
         private String Id;
         private String name;
@@ -19,27 +20,25 @@ public class AdminArchiveEditMsg extends BaseMsg{
         private String publish;
         private String introduction;
         private String language;
-        private Date uploadDate;
+        private String uploadDate;
         private int downloadCnt;
     }
-    public AdminArchiveEditMsg(int adminArchiveEditCode, ArrayList<Book> bookArrayList) {
+    public AdminArchiveEditMsg(int adminArchiveEditCode, Book book) {
         super(ADMIN_ARCHIVE_EDIT);
         this.adminArchiveEditCode = adminArchiveEditCode;
-        this.bookArrayList = bookArrayList;
+        this.book = book;
     }
 
-    public static AdminArchiveEditMsg createAdminArchiveEditMsg(int adminArchiveEditCode, ArrayList<AdminArchiveEditMsg.Book> bookArrayList){
-        return new AdminArchiveEditMsg(adminArchiveEditCode,bookArrayList);
+    public static AdminArchiveEditMsg createAdminArchiveEditMsg(int adminArchiveEditCode, Book book){
+        return new AdminArchiveEditMsg(adminArchiveEditCode,book);
     }
 
-    public int getBookNum(){return bookArrayList.size();}
-    public Book getBookInfo(int i){return bookArrayList.get(i);}
-    public String getBookId(Book book){return book.Id;}
-    public String getBookName(Book book){return book.name;}
-    public String getBookAuthor(Book book){return book.author;}
-    public String getBookPublish(Book book){return book.publish;}
-    public String getBookLanguage(Book book){return book.language;}
-    public String getBookIntroduction(Book book){return book.introduction;}
-    public Date getBookUploadDate(Book book){return book.uploadDate;}
-    private int getBookDownloadCnt(Book book){return book.downloadCnt;}
+    public String getBookId(){return book.Id;}
+    public String getBookName(){return book.name;}
+    public String getBookAuthor(){return book.author;}
+    public String getBookPublish(){return book.publish;}
+    public String getBookLanguage(){return book.language;}
+    public String getBookIntroduction(){return book.introduction;}
+    public String getBookUploadDate(){return book.uploadDate;}
+    private int getBookDownloadCnt(){return book.downloadCnt;}
 }
