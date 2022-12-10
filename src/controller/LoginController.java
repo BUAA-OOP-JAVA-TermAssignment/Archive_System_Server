@@ -4,7 +4,6 @@ import dao.domain.Admin;
 import dao.domain.User;
 import message.BaseMsg;
 import message.LoginReturnMsg;
-import message.AdminArchiveEditMsg;
 import request.UserLoginRequst;
 import request.UserRegisterRequest;
 import service.LoginService;
@@ -81,7 +80,7 @@ public class LoginController {
                 User user = loginService.hasMatchUser(id, password);
                 if (user != null) {
                     System.out.println("成功查找到此人！");
-                    um.getThread().sendMsgBack(LoginReturnMsg.createLoginReturnMsg(1, user.getUserName(), user.getId(), user.getEmail(), user.getPassword(), user.getDownloadCnt(), user.getTime()));
+                    um.getThread().sendMsgBack(LoginReturnMsg.createLoginReturnMsg(user.getUserName(), user.getId(), user.getEmail(), user.getPassword(), user.getDownloadCnt(), user.getTime()));
                 } else {
                     System.out.println("没有匹配！");
                     um.getThread().sendMsgBack(new BaseMsg(BaseMsg.UNDEFINED_FAILED));
@@ -90,7 +89,7 @@ public class LoginController {
                 Admin admin = loginService.hasMatchAdmin(id, password);
                 System.out.println("成功查找到此人！");
                 if (admin != null) {
-                    um.getThread().sendMsgBack(LoginReturnMsg.createLoginReturnMsg(2, admin.getUserName(), admin.getId(), admin.getEmail(), admin.getPassword(), 0, admin.getTime()));
+                    um.getThread().sendMsgBack(LoginReturnMsg.createLoginReturnMsg(admin.getUserName(), admin.getId(), admin.getEmail(), admin.getPassword(), 0, admin.getTime()));
                 } else {
                     um.getThread().sendMsgBack(new BaseMsg(BaseMsg.UNDEFINED_FAILED));
                 }
