@@ -102,25 +102,29 @@ public class ClientThread implements Runnable {
     private BaseRequst msgToRequst(BaseMsg msg) {
 
         switch (msg.getMsgCode()) {
-            case BaseMsg.LOGIN -> {
-                System.out.println("成功解析报文3！");
+            case BaseMsg.LOGIN:
+                System.out.println("receive msg LOGIN");
                 return new UserLoginRequst((UserLoginRequestMsg) msg, this);
-            }
-            case BaseMsg.DOWNLOAD_FILE_REQUEST -> {
-                System.out.println("receive downloadMsg!");
+
+            case BaseMsg.DOWNLOAD_FILE_REQUEST:
+                System.out.println("receive msg DOWNLOAD_FILE_REQUEST");
                 return new DownloadRequest((DownloadRequestMsg) msg, this);
-            }
-            case BaseMsg.REGISTER -> {
-                System.out.println("成功解析报文4！");
+
+            case BaseMsg.REGISTER:
+                System.out.println("receive msg REGISTER");
                 return new UserRegisterRequest((UserRegisterRequestMsg) msg, this);
-            }
-            case BaseMsg.MODIFY_USER_INFO -> {
-                System.out.println("成功解析报文7！");
+
+            case BaseMsg.MODIFY_USER_INFO:
+                System.out.println("receive msg MODIFY_USER_INFO");
                 return new ModifyUserInfoRequest((ModifyUserInfo) msg, this);
-            }
-            default -> {
+
+            case BaseMsg.SEARCH_ARCHIVE:
+                System.out.println("receive msg SEARCH_ARCHIVE");
+                return new SearchRequest((SearchRequestMsg) msg, this);
+
+            default:
                 return null;
-            }
         }
     }
 }
+

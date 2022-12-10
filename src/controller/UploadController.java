@@ -22,16 +22,10 @@ public class UploadController {
 
     private static UploadController uc;
 
-    private UploadService uploadService;
-
     /**
      * 服务器存放pdf文件的地址
      */
     private static final String FILE_SAVE_PATH = "D:\\Archive_System\\origin_pdfs";
-
-    private UploadController() {
-        setUploadService(new UploadService());
-    }
 
     public static UploadController getInstance() {
         if (uc == null) {
@@ -44,31 +38,8 @@ public class UploadController {
         return uc;
     }
 
-    public void setUploadService(UploadService us) {
-        uploadService = us;
-    }
-
     /**
-     * 上传pdf文件
-     */
-    public void uploadFile(UploadRequst um) {
-        //TODO:这里返回值需要修改！
-        File file = um.getFile();
-        if (file != null) {
-            boolean haveUpload = uploadService.hasUploadFile(file);
-            if (haveUpload) {
-                um.getThread().sendMsgBack(new UploadReturnMsg(114514));
-            } else {
-                um.getThread().sendMsgBack(new UploadReturnMsg(114514));
-            }
-        } else {
-            um.getThread().sendMsgBack(new UploadReturnMsg(114514));
-        }
-    }
-
-
-    /**
-     * 下载pdf文件
+     * 下载pdf文件至客户端
      */
     public void download(DownloadRequest dr) {
         System.out.println("hello!");

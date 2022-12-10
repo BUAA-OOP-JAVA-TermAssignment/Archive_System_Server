@@ -11,45 +11,53 @@ import java.util.Date;
  * @author : AkashiSensei
  * &#064;date : 2022/12/8 22:04
  */
-public class SearchReturnMsg extends BaseMsg{
+public class SearchReturnMsg extends BaseMsg {
 
     private ArrayList<Book> bookArrayList;
-    class Book{
+
+    class Book {
         private String Id;
         private String name;
         private String author;
+
+        private int downloadCnt;
         private String matchedText;
-        private int matchedCnt;
+
+        Book(String id, String name, String author, String matchedText, String downloadCnt) {
+            this.Id = id;
+            this.name = name;
+            this.author = author;
+            this.matchedText = matchedText;
+            this.downloadCnt = Integer.parseInt(downloadCnt);
+        }
     }
 
-    public SearchReturnMsg(ArrayList<Book> bookArrayList) {
-        super(- SEARCH_ARCHIVE);
-        this.bookArrayList = bookArrayList;
+    public SearchReturnMsg() {
+        super(-SEARCH_ARCHIVE);
+        this.bookArrayList = new ArrayList<>();
     }
 
-    public static SearchReturnMsg createSearchReturnMsg(ArrayList<Book> bookArrayList){
-        return new SearchReturnMsg(bookArrayList);
+    public void addDoc(String id, String name, String author, String matchedText, String downloadCnt) {
+        bookArrayList.add(new Book(id, name, author, matchedText, downloadCnt));
     }
-
-    public int getBookNum(){return bookArrayList.size();}
-    public Book getBookInfo(int i){return bookArrayList.get(i);}
-    public String getBookId(SearchReturnMsg.Book book){return book.Id;}
-    public String getBookName(SearchReturnMsg.Book book){return book.name;}
-    public String getBookAuthor(SearchReturnMsg.Book book){return book.author;}
 
     public String getBookId(int inx) {
         return bookArrayList.get(inx).Id;
     }
+
     public String getBookName(int inx) {
         return bookArrayList.get(inx).name;
     }
+
     public String getBookAuthor(int inx) {
         return bookArrayList.get(inx).author;
     }
+
     public String getBookMatchedText(int inx) {
         return bookArrayList.get(inx).matchedText;
     }
-    public int getBookMatchedCnt(int inx) {
-        return bookArrayList.get(inx).matchedCnt;
+
+    public int getBookDownloadCnt(int inx) {
+        return bookArrayList.get(inx).downloadCnt;
     }
 }

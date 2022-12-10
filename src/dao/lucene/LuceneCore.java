@@ -1,12 +1,14 @@
 package dao.lucene;
 
 
+import controller.SearchController;
 import dao.utils.DBUtil;
 
 import java.nio.file.FileSystems;
 import java.sql.ResultSet;
 
 import dao.utils.IKAnalyzer4Lucene9;
+import message.SearchReturnMsg;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
@@ -39,6 +41,26 @@ import java.sql.SQLException;
  * @author pcpas
  */
 public class LuceneCore {
+
+
+    private static LuceneCore luceneCore;
+
+    /**
+     * 线程安全的单例模式
+     *
+     * @return
+     */
+    public static LuceneCore getInstance() {
+        if (luceneCore == null) {
+            synchronized (LuceneCore.class) {
+                if (luceneCore == null) {
+                    luceneCore = new LuceneCore();
+                }
+            }
+        }
+        return luceneCore;
+    }
+
 
     static final String PATH_INDEX = "D:\\Archive_System\\example_index_lucene";
 
@@ -88,9 +110,8 @@ public class LuceneCore {
                 doc.add(new Field("id", rs.getString("id"), fieldTypeMetadata));
                 doc.add(new Field("name", rs.getString("name"), fieldTypeText));
                 doc.add(new Field("author", rs.getString("author"), fieldTypeText));
-                doc.add(new Field("publish", rs.getString("publish"), fieldTypeText));
-                doc.add(new Field("introduction", rs.getString("introduction"), fieldTypeText));
                 doc.add(new Field("content", rs.getString("content"), fieldTypeText));
+                doc.add(new Field("downloadCnt", String.valueOf(rs.getInt("downloadCnt")), fieldTypeText));
                 ixwriter.addDocument(doc);
             }
             cn.close();
@@ -108,7 +129,7 @@ public class LuceneCore {
      *
      * @param keyWord
      */
-    public void search(String keyWord) {
+    public SearchReturnMsg search(String keyWord, int offset, int max) {
         DirectoryReader directoryReader = null;
         try {
             // 1、创建Directory
@@ -127,8 +148,7 @@ public class LuceneCore {
             Query multiFieldQuery = MultiFieldQueryParser.parse(keyWord, fields, clauses, analyzer);
 
             // 5、根据searcher搜索并且返回TopDocs
-            TopDocs topDocs = indexSearcher.search(multiFieldQuery, 5);
-            System.out.println("共找到匹配处：" + topDocs.totalHits);
+            TopDocs topDocs = indexSearcher.search(multiFieldQuery, offset + max);
             // 6、根据TopDocs获取ScoreDoc对象
             ScoreDoc[] scoreDocs = topDocs.scoreDocs;
             System.out.println("共找到匹配文档数：" + scoreDocs.length);
@@ -137,18 +157,21 @@ public class LuceneCore {
             SimpleHTMLFormatter htmlFormatter = new SimpleHTMLFormatter("<span style=\"backgroud:red\">", "</span>");
             Highlighter highlighter = new Highlighter(htmlFormatter, scorer);
             highlighter.setTextFragmenter(new SimpleSpanFragmenter(scorer));
+            SearchReturnMsg srm = new SearchReturnMsg();
+            int i = 0;
             for (ScoreDoc scoreDoc : scoreDocs) {
+                i++;
+                if (i <= offset) {
+                    continue;
+                }
                 // 7、根据searcher和ScoreDoc对象获取具体的Document对象
                 Document document = indexSearcher.doc(scoreDoc.doc);
                 String content = document.get("content");
-                System.out.println("-----------------------------------------");
-                System.out.println("文章标题：" + document.get("name"));
-                System.out.println("文章作者：" + document.get("author"));
-                System.out.println("文章作者：" + document.get("introduction"));
-                System.out.println("文章内容：");
-                System.out.println(highlighter.getBestFragment(analyzer, "content", content));
-                // 8、根据Document对象获取需要的值
+                String matchSegment = highlighter.getBestFragment(analyzer, "content", content);
+                //打包发给前台
+                srm.addDoc(document.get("id"), document.get("name"), document.get("author"), matchSegment, document.get("downloadCnt"));
             }
+            return srm;
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -160,6 +183,7 @@ public class LuceneCore {
                 e.printStackTrace();
             }
         }
+        return null;
     }
 
 }

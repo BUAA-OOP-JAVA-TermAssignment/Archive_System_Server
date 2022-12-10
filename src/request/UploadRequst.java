@@ -19,6 +19,6 @@ public class UploadRequst extends BaseRequst{
 
 
     public void execute(){
-        UploadController.getInstance().uploadFile(this);
+        //UploadController.getInstance().uploadFile(this);
     }
 }
