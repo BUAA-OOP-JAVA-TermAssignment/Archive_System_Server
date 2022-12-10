@@ -17,7 +17,7 @@ public class AdminDaoImpl implements AdminDao {
     private static Connection cn = null;
     private static ResultSet rs = null;
 
-    private static final String MATCH_ADMIN_SQL = "select username,password from admin where username=? and password=?";
+    private static final String MATCH_ADMIN_SQL = "select id,password from admin where id=? and password=?";
     private static final String ADD_ADMIN_SQL = "insert into admin values(?,?,?,?)";
     private static final String DELETE_ADMIN_SQL = "delete from admin where id=?";
     private static final String EDIT_ADMIN_SQL = "update admin set username=?,password=?,phone=?where id=?";
@@ -32,7 +32,7 @@ public class AdminDaoImpl implements AdminDao {
             ps.setString(1, admin.getId());
             ps.setString(2, admin.getUserName());
             ps.setString(3, admin.getPassword());
-            ps.setString(4, admin.getPhone());
+            ps.setString(4, admin.getEmail());
             int result = ps.executeUpdate();
             DBUtil.close(null, ps, cn);
         }catch (SQLException e){
@@ -50,7 +50,7 @@ public class AdminDaoImpl implements AdminDao {
             ps = cn.prepareStatement(EDIT_ADMIN_SQL);
             ps.setString(1, admin.getUserName());
             ps.setString(2, admin.getPassword());
-            ps.setString(3, admin.getPhone());
+            ps.setString(3, admin.getEmail());
             ps.setString(4, admin.getId());
             int result = ps.executeUpdate();
             DBUtil.close(null, ps, cn);
@@ -85,7 +85,7 @@ public class AdminDaoImpl implements AdminDao {
             ps = cn.prepareStatement(LIST_ADMIN_SQL);
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new Admin(rs.getString(1), rs.getString(2),rs.getString(3), rs.getString(4)));
+                list.add(new Admin(rs.getString(1), rs.getString(2),rs.getString(3), rs.getString(4), rs.getDate(5)));
                 //放到集合中
             }
         }catch (SQLException e){
@@ -96,7 +96,7 @@ public class AdminDaoImpl implements AdminDao {
     }
 
     @Override
-    public boolean getMatchAdmin(String username, String password) {
+    public Admin getMatchAdmin(String username, String password) {
         cn = DBUtil.getConnection();
         try {
             assert cn != null;
@@ -105,13 +105,12 @@ public class AdminDaoImpl implements AdminDao {
             ps.setString(2, password);
             rs = ps.executeQuery();
             if (rs.next()) {
-                DBUtil.close(null, ps, cn);
-                return true;
+                return new Admin(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package dao.domain;
 
+import java.util.Date;
+
 public class Admin {
     private String id;
 
@@ -7,13 +9,16 @@ public class Admin {
 
     private String password;
 
-    private String phone;
+    private String email;
 
-    public Admin(String id, String userName, String password, String phone){
+    private Date time;
+
+    public Admin(String id, String userName, String password, String email, Date time){
         this.id = id;
         this.userName = userName;
         this.password = password;
-        this.phone = phone;
+        this.email = email;
+        this.time = time;
     }
 
     public String getId() {
@@ -32,14 +37,21 @@ public class Admin {
         this.password = password;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
+    public Date getTime(){
+        return time;
+    }
+
+    public void setTime(Date time){
+        this.time = time;
+    }
     public String getUserName() {
         return userName;
     }

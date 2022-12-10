@@ -87,7 +87,7 @@ public class UserDaoImpl implements UserDao {
             ps = cn.prepareStatement(LIST_USER_SQL);
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new User(rs.getString(1), rs.getString(2),rs.getString(3), rs.getString(4)));
+                list.add(new User(rs.getString(1), rs.getString(2),rs.getString(3), rs.getString(4), rs.getInt(5), rs.getDate(6)));
                 //放到集合中
             }
         }catch (SQLException e){
@@ -98,7 +98,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean getMatchUser(String id, String password) {
+    public User getMatchUser(String id, String password) {
         cn = DBUtil.getConnection();
         try {
             assert cn != null;
@@ -107,12 +107,12 @@ public class UserDaoImpl implements UserDao {
             ps.setString(2, password);
             rs = ps.executeQuery();
             if (rs.next()) {
-                return true;
+                return new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getDate(6));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package message;
 
 public class UserLoginRequestMsg extends BaseMsg {
+    public static final int GUEST = 1, ADMIN = 2;
     private int userType;
     private String id;
     private String password;
