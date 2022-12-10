@@ -1,0 +1,40 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/lib" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/analyzers-common" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/analyzers-icu" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/analyzers-kuromoji" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/analyzers-morfologik" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/analyzers-phonetic" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/analyzers-smartcn" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/analyzers-stempel" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/analyzers-uima" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/backward-codecs" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/benchmark" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/classification" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/codecs" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/core" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/demo" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/expressions" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/facet" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/grouping" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/highlighter" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/join" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/memory" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/misc" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/queries" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/queryparser" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/replicator" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/sandbox" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/spatial" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/spatial3d" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/suggest" />
+      <root url="file://$PROJECT_DIR$/lib/lucene-5.5.4/docs/test-framework" />
+    </JAVADOC>
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/lib" recursive="false" />
+  </library>
+</component>
