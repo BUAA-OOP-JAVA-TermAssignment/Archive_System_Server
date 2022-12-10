@@ -3,8 +3,10 @@ package server.thread;
 import dao.domain.User;
 import message.BaseMsg;
 import message.UserLoginRequestMsg;
+import message.UserRegisterRequestMsg;
 import request.BaseRequst;
 import request.UserLoginRequst;
+import request.UserRegisterRequest;
 
 import java.io.*;
 import java.net.Socket;
@@ -62,9 +64,15 @@ public class ClientThread implements Runnable {
     }
 
     private BaseRequst msgToRequst(BaseMsg msg) {
-        if (msg instanceof UserLoginRequestMsg) {
-            System.out.println("成功解析报文！");
-            return new UserLoginRequst((UserLoginRequestMsg) msg, this);
+        switch (msg.getMsgCode()){
+            case 1 << 3 : {
+                System.out.println("成功解析报文1！");
+                return new UserLoginRequst((UserLoginRequestMsg) msg, this);
+            }
+            case 1 << 4 : {
+                System.out.println("成功解析报文1！");
+                return new UserRegisterRequest((UserRegisterRequestMsg) msg, this);
+            }
         }
         return null;
     }
