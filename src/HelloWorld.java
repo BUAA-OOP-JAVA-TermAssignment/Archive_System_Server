@@ -18,14 +18,18 @@ import java.util.Date;
  */
 public class HelloWorld {
 
-    public static void main(String[] args) throws IOException {
-        LuceneCore lc = new LuceneCore();
-        lc.buildIndex();
-        lc.search("我爱JAVA");
+    public static void main(String[] args) {
+        ServerCore.getMyServer().runServer();
 
     }
 
-    private void addFile() {
+    void lucene() throws IOException {
+        LuceneCore lc = new LuceneCore();
+        lc.buildIndex();
+        lc.search("我爱JAVA");
+    }
+
+    void addFile() {
         //导入一些本地文件测试
         for (int i = 1; i < 6; i++) {
             String id = "EX-000" + i;

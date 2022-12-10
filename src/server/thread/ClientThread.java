@@ -2,8 +2,10 @@ package server.thread;
 
 import dao.domain.User;
 import message.BaseMsg;
+import message.DownloadRequestMsg;
 import message.UserLoginRequestMsg;
 import request.BaseRequst;
+import request.DownloadRequest;
 import request.UserLoginRequst;
 
 import java.io.*;
@@ -44,6 +46,32 @@ public class ClientThread implements Runnable {
         }
     }
 
+    /**
+     * 将文件下载给该客户端
+     *
+     * @param filePath 文件的地址
+     * @return 结果
+     */
+    public boolean downloadFile(String filePath) {
+        try {
+            OutputStream outputStream = socket.getOutputStream();
+            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(filePath));
+            byte[] data = new byte[1024];
+            int len = 0;
+            while ((len = bis.read(data)) != -1) {
+                outputStream.write(data, 0, len);
+            }
+            bis.close();
+            outputStream.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+
     @Override
     public void run() {
         try {
@@ -62,10 +90,16 @@ public class ClientThread implements Runnable {
     }
 
     private BaseRequst msgToRequst(BaseMsg msg) {
-        if (msg instanceof UserLoginRequestMsg) {
-            System.out.println("成功解析报文！");
-            return new UserLoginRequst((UserLoginRequestMsg) msg, this);
+
+        switch (msg.getMsgCode()) {
+            case BaseMsg.LOGIN:
+                return new UserLoginRequst((UserLoginRequestMsg) msg, this);
+            case BaseMsg.DOWNLOAD_FILE_REQUEST:
+                System.out.println("receive downloadMsg!");
+                return new DownloadRequest((DownloadRequestMsg) msg, this);
+            default:
         }
+
         return null;
     }
 }

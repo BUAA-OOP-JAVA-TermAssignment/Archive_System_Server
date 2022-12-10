@@ -9,8 +9,8 @@ public class UserLoginRequst extends BaseRequst {
     UserLoginRequestMsg um;
 
     public UserLoginRequst(UserLoginRequestMsg um, ClientThread ct) {
+        super(ct);
         this.um = um;
-        this.ct = ct;
     }
 
     public int getUserType(){return um.getUserType();}

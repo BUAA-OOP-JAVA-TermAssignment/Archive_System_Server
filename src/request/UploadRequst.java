@@ -10,8 +10,8 @@ public class UploadRequst extends BaseRequst{
     UploadRequestMsg um;
 
     public UploadRequst(UploadRequestMsg um, ClientThread ct){
+        super(ct);
         this.um = um;
-        this.ct = ct;
     }
 
     //×¢Òâ¸Ä

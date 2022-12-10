@@ -3,19 +3,25 @@ package controller;
 import dao.DaoSet;
 import dao.domain.Document;
 import dao.utils.FileUtils;
+import message.DownloadRequestMsg;
 import message.UploadReturnMsg;
 import org.apache.pdfbox.pdmodel.interactive.form.FieldUtils;
+import request.DownloadRequest;
 import request.UploadRequst;
 import service.UploadService;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.net.Socket;
 
 public class UploadController {
 
     private static UploadController uc;
 
     private UploadService uploadService;
+
+    private static final String FILE_SAVE_PATH = "D:\\Archive_System\\origin_pdfs";
 
     private UploadController() {
         setUploadService(new UploadService());
@@ -37,10 +43,10 @@ public class UploadController {
     }
 
     /**
-     * ÉÏ´«pdfÎÄ¼ş
+     * ä¸Šä¼ pdfæ–‡ä»¶
      */
     public void uploadFile(UploadRequst um) {
-        //TODO:ÕâÀï·µ»ØÖµĞèÒªĞŞ¸Ä£¡
+        //TODO:è¿™é‡Œè¿”å›å€¼éœ€è¦ä¿®æ”¹ï¼
         File file = um.getFile();
         if (file != null) {
             boolean haveUpload = uploadService.hasUploadFile(file);
@@ -54,21 +60,32 @@ public class UploadController {
         }
     }
 
-    //TODO:ÉÏ´«ÍêÎÄ¼şÖ®ºóÊ¹ÓÃ´Ëº¯Êı
 
     /**
-     * ÓÃÓÚ½«ÉÏ´«µÄÎÄ¼şºÍÎÄ¼şÊôĞÔºÏ²¢£¬²¢±£´æÔÚÊı¾İ¿â
+     * ä¸‹è½½pdfæ–‡ä»¶
+     */
+    public void download(DownloadRequest dr) {
+        System.out.println("hello!");
+        String filePath = FILE_SAVE_PATH + "\\" + dr.getDocId() + ".pdf";
+        dr.getThread().downloadFile(filePath);
+        System.out.println("ä¸‹è½½æˆåŠŸï¼");
+    }
+
+    //TODO:ä¸Šä¼ å®Œæ–‡ä»¶ä¹‹åä½¿ç”¨æ­¤æ–¹æ³•
+
+    /**
+     * ç”¨äºå°†ä¸Šä¼ çš„æ–‡ä»¶å’Œæ–‡ä»¶å±æ€§åˆå¹¶ï¼Œå¹¶ä¿å­˜åœ¨æ•°æ®åº“
      *
-     * @param doc     Óû±£´æµÄÎÄµµ£¬ÆäÖĞ content == null
-     * @param pdfPath ±¾µØ±£´æµÄpdfÎÄ¼şµØÖ·£¬ÆäÖĞ°üº¬´ıÌáÈ¡µÄcontent
-     * @return true Ìí¼Ó³É¹¦ false Ìí¼ÓÊ§°Ü
+     * @param doc     æ¬²ä¿å­˜çš„æ–‡æ¡£ï¼Œå…¶ä¸­ content == null
+     * @param pdfPath æœ¬åœ°ä¿å­˜çš„pdfæ–‡ä»¶åœ°å€ï¼Œå…¶ä¸­åŒ…å«å¾…æå–çš„content
+     * @return true æ·»åŠ æˆåŠŸ false æ·»åŠ å¤±è´¥
      */
     public boolean saveDocument(Document doc, String pdfPath) {
         String text = null;
         try {
             text = FileUtils.readPdf(pdfPath);
         } catch (IOException e) {
-            System.out.println("¶ÁÈ¡PDFÎÄ¼şÊ§°Ü£¡");
+            System.out.println("è¯»å–PDFæ–‡ä»¶å¤±è´¥ï¼");
             e.printStackTrace();
             return false;
         }

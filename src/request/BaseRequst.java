@@ -1,13 +1,15 @@
 package request;
 
 import controller.LoginController;
+import message.BaseMsg;
 import server.thread.ClientThread;
 
 public abstract class BaseRequst {
     protected ClientThread ct;
 
-    public void setThread(ClientThread thread) {
-        ct = thread;
+    protected BaseRequst(ClientThread thread)
+    {
+        this.ct = thread;
     }
 
     public ClientThread getThread() {
