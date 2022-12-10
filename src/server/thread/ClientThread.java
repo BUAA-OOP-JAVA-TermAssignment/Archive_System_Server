@@ -2,9 +2,11 @@ package server.thread;
 
 import dao.domain.User;
 import message.BaseMsg;
+import message.ModifyUserInfo;
 import message.UserLoginRequestMsg;
 import message.UserRegisterRequestMsg;
 import request.BaseRequst;
+import request.ModifyUserInfoRequest;
 import request.UserLoginRequst;
 import request.UserRegisterRequest;
 
@@ -64,14 +66,18 @@ public class ClientThread implements Runnable {
     }
 
     private BaseRequst msgToRequst(BaseMsg msg) {
-        switch (msg.getMsgCode()){
-            case 1 << 3 : {
-                System.out.println("成功解析报文1！");
+        switch (msg.getMsgCode()) {
+            case 1 << 3 -> {
+                System.out.println("成功解析报文3！");
                 return new UserLoginRequst((UserLoginRequestMsg) msg, this);
             }
-            case 1 << 4 : {
-                System.out.println("成功解析报文1！");
+            case 1 << 4 -> {
+                System.out.println("成功解析报文4！");
                 return new UserRegisterRequest((UserRegisterRequestMsg) msg, this);
+            }
+            case 1 << 7 -> {
+                System.out.println("成功解析报文7！");
+                return new ModifyUserInfoRequest((ModifyUserInfo) msg, this);
             }
         }
         return null;

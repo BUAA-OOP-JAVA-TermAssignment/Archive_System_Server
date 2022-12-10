@@ -79,10 +79,11 @@ public class LoginController {
         if (id != null && password != null) {
             if(userType == 1){
                 User user = loginService.hasMatchUser(id, password);
-                System.out.println("成功查找到此人！");
                 if (user != null) {
+                    System.out.println("成功查找到此人！");
                     um.getThread().sendMsgBack(LoginReturnMsg.createLoginReturnMsg(1, user.getUserName(), user.getId(), user.getEmail(), user.getPassword(), user.getDownloadCnt(), user.getTime()));
                 } else {
+                    System.out.println("没有匹配！");
                     um.getThread().sendMsgBack(new BaseMsg(BaseMsg.UNDEFINED_FAILED));
                 }
             }

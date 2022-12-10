@@ -17,8 +17,8 @@ public class UserDaoImpl implements UserDao {
 
     private static final String MATCH_USER_SQL = "select id,password from user where username=? and password=?";
     private static final String ADD_USER_SQL = "insert into user values(?,?,?,?,?,?)";
-    private static final String EDIT_USER_SQL = "update admin set username=?,password=?,email=?where id=?";
-    private static final String DELETE_USER_SQL = "delete from admin where id=?";
+    private static final String EDIT_USER_SQL = "update user set password=?,email=?,downloadCnt=? where id=?";
+    private static final String DELETE_USER_SQL = "delete from user where id=?";
     private static final String LIST_USER_SQL = "select * from user";
     @Override
     public boolean addUser(User user) {
@@ -42,15 +42,16 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean editUser(User user) {
+    public boolean editUser(String id, String password, String email, int downloadCnt) {
+        System.out.println(id);
         cn = DBUtil.getConnection();
         try {
             assert cn != null;
             ps = cn.prepareStatement(EDIT_USER_SQL);
-            ps.setString(1, user.getUserName());
-            ps.setString(2, user.getPassword());
-            ps.setString(3, user.getEmail());
-            ps.setString(4, user.getId());
+            ps.setString(1, password);
+            ps.setString(2, email);
+            ps.setInt(3, downloadCnt);
+            ps.setString(4, id);
             int result = ps.executeUpdate();
             DBUtil.close(null, ps, cn);
         } catch (SQLException e) {
