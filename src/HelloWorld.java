@@ -4,6 +4,7 @@ import dao.domain.Document;
 import dao.domain.User;
 import dao.lucene.LuceneCore;
 import dao.utils.FileUtils;
+import request.UserLoginRequst;
 import server.ServerCore;
 
 import java.io.IOException;
@@ -19,9 +20,8 @@ import java.util.Date;
 public class HelloWorld {
 
     public static void main(String[] args) throws IOException {
-        LuceneCore lc = new LuceneCore();
-        lc.buildIndex();
-        lc.search("我爱JAVA");
+        ServerCore.getMyServer().runServer();
+
 
     }
 
@@ -35,7 +35,7 @@ public class HelloWorld {
             String ab = "我爱JAVA，特别是JAVA 1." + i;
             String language = "中文";
             String path = "D:\\Archive_System\\origin_pdfs\\EX_000" + i + ".pdf";
-            Document doc = new Document(id, name, author, publisher, ab, language, new Date(), 0);
+            Document doc = new Document(id, name, author, publisher, ab, language, new Date().toString(), 0);
             UploadController.getInstance().saveDocument(doc, path);
         }
     }

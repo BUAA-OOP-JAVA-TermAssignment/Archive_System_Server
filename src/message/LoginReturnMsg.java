@@ -8,11 +8,11 @@ public class LoginReturnMsg extends BaseMsg{
     private String id;
     private String password;
     private final int downloadCnt;
-    private final Date date;
+    private final String date;
     private final String email;
 
 
-    private LoginReturnMsg(int userType,String userName,String id, String email, String password, int downloadCnt, Date date) {
+    private LoginReturnMsg(int userType,String userName,String id, String email, String password, int downloadCnt, String date) {
         super(- LOGIN);
         this.userType = userType;
         this.userName = userName;
@@ -29,7 +29,7 @@ public class LoginReturnMsg extends BaseMsg{
      * @param downloadCnt 用户总计下载量，这个值由客户端统计，服务器只需要记录这个值
      * @param email 用户邮箱
      */
-    public static LoginReturnMsg createLoginReturnMsg(int userType,String userName,String id, String email, String password, int downloadCnt, Date date) {
+    public static LoginReturnMsg createLoginReturnMsg(int userType,String userName,String id, String email, String password, int downloadCnt, String date) {
         return new LoginReturnMsg(userType,userName,id,email,password,downloadCnt, date);
     }
 
@@ -58,7 +58,7 @@ public class LoginReturnMsg extends BaseMsg{
         return password;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 }

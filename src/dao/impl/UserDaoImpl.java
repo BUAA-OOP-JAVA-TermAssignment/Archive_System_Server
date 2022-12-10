@@ -31,7 +31,7 @@ public class UserDaoImpl implements UserDao {
             ps.setString(3, user.getPassword());
             ps.setString(4, user.getEmail());
             ps.setInt(5, user.getDownloadCnt());
-            ps.setDate(6, (Date) user.getTime());
+            ps.setString(6, user.getTime().toString());
             int result = ps.executeUpdate();
             DBUtil.close(null, ps, cn);
         } catch (SQLException e) {
@@ -86,7 +86,7 @@ public class UserDaoImpl implements UserDao {
             ps = cn.prepareStatement(LIST_USER_SQL);
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new User(rs.getString(1), rs.getString(2),rs.getString(3), rs.getString(4), rs.getInt(5), rs.getDate(6)));
+                list.add(new User(rs.getString(1), rs.getString(2),rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6)));
                 //放到集合中
             }
         }catch (SQLException e){
@@ -106,7 +106,7 @@ public class UserDaoImpl implements UserDao {
             ps.setString(2, password);
             rs = ps.executeQuery();
             if (rs.next()) {
-                return new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getDate(6));
+                return new User(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6));
             }
         } catch (SQLException e) {
             e.printStackTrace();

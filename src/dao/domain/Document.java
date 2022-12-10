@@ -13,7 +13,7 @@ public class Document {
     private String publish;
     private String introduction;
     private String language;
-    private Date uploadDate;
+    private String uploadDate;
     private int downloadCnt;
 
     public Document() {
@@ -29,7 +29,7 @@ public class Document {
      * @param uploadDate
      * @param downloadCnt
      */
-    public Document(String Id, String name, String author, String publish, String introduction, String language, Date uploadDate, int downloadCnt) {
+    public Document(String Id, String name, String author, String publish, String introduction, String language, String uploadDate, int downloadCnt) {
         this.Id = Id;
         this.name = name;
         this.author = author;
@@ -52,7 +52,7 @@ public class Document {
      * @param uploadDate
      * @param downloadCnt
      */
-    public Document(String Id, String name, String author, String content, String publish, String introduction, String language, Date uploadDate, int downloadCnt) {
+    public Document(String Id, String name, String author, String content, String publish, String introduction, String language, String uploadDate, int downloadCnt) {
         this.Id = Id;
         this.name = name;
         this.author = author;
@@ -92,7 +92,7 @@ public class Document {
         this.introduction = introduction;
     }
 
-    public void setUploadDate(Date uploadDate) {
+    public void setUploadDate(String uploadDate) {
         this.uploadDate = uploadDate;
     }
 
@@ -124,7 +124,7 @@ public class Document {
         return language;
     }
 
-    public Date getUploadDate() {
+    public String getUploadDate() {
         return uploadDate;
     }
 

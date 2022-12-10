@@ -55,7 +55,7 @@ public class LoginController {
      * @param um 来自客户端的注册消息
      */
     public void userRegister(UserRegisterRequest um) {
-        User user = new User(um.getId(), um.getName(), um.getPassword(), um.getEmail(), 0, new Date());
+        User user = new User(um.getId(), um.getName(), um.getPassword(), um.getEmail(), 0, new Date().toString());
         boolean isReg = loginService.userRegister(user);
         if (isReg) {
             um.getThread().sendMsgBack(new BaseMsg(BaseMsg.SUCCESS));
