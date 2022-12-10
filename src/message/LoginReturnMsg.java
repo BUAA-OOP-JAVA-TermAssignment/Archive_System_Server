@@ -3,6 +3,7 @@ package message;
 import java.util.Date;
 
 public class LoginReturnMsg extends BaseMsg{
+    private int userType;
     private String userName;
     private String id;
     private String password;
@@ -11,8 +12,9 @@ public class LoginReturnMsg extends BaseMsg{
     private final String email;
 
 
-    private LoginReturnMsg(String userName,String id, String email, String password, int downloadCnt, Date date) {
+    private LoginReturnMsg(int userType,String userName,String id, String email, String password, int downloadCnt, Date date) {
         super(- LOGIN);
+        this.userType = userType;
         this.userName = userName;
         this.id = id;
         this.email = email;
@@ -27,8 +29,12 @@ public class LoginReturnMsg extends BaseMsg{
      * @param downloadCnt 用户总计下载量，这个值由客户端统计，服务器只需要记录这个值
      * @param email 用户邮箱
      */
-    public static LoginReturnMsg createLoginReturnMsg(String userName,String id, String email, String password, int downloadCnt, Date date) {
-        return new LoginReturnMsg(userName,id,email,password,downloadCnt, date);
+    public static LoginReturnMsg createLoginReturnMsg(int userType,String userName,String id, String email, String password, int downloadCnt, Date date) {
+        return new LoginReturnMsg(userType,userName,id,email,password,downloadCnt, date);
+    }
+
+    public int getUserType(){
+        return userType;
     }
 
     public String getUserName() {

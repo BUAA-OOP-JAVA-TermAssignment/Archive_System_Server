@@ -13,13 +13,15 @@ public class User {
 
     private int downloadCnt;
 
-    private Date createTime;
+    private Date time;
 
-    public User(String id, String userName,String password,String email){
+    public User(String id, String userName,String password,String email ,int downloadCnt, Date time){
         this.id = id;
         this.userName = userName;
         this.password = password;
         this.email = email;
+        this.downloadCnt = downloadCnt;
+        this.time = time;
     }
 
     public String getId() {
@@ -62,11 +64,11 @@ public class User {
         this.downloadCnt = downloadCnt;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Date getTime() {
+        return time;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setTime(Date time) {
+        this.time = time;
     }
 }

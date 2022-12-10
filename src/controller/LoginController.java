@@ -1,5 +1,6 @@
 package controller;
 
+import dao.domain.Admin;
 import dao.domain.User;
 import message.BaseMsg;
 import message.LoginReturnMsg;
@@ -66,18 +67,33 @@ public class LoginController {
      */
     public void userLoginCheck(UserLoginRequst um) {
         //TODO:这里返回值需要修改！
+        int userType = um.getUserType();
         String id = um.getId();
         String password = um.getPassword();
         if (id != null && password != null) {
-            boolean haveMatch = loginService.hasMatchUser(id, password);
-            System.out.println("成功查找到此人！");
-            if (haveMatch) {
-                um.getThread().sendMsgBack(new BaseMsg(BaseMsg.SUCCESS));
-            } else {
+            if(userType == 1){
+                User user = loginService.hasMatchUser(id, password);
+                System.out.println("成功查找到此人！");
+                if (user != null) {
+                    um.getThread().sendMsgBack(LoginReturnMsg.createLoginReturnMsg(1, user.getUserName(), user.getId(), user.getEmail(), user.getPassword(), user.getDownloadCnt(), user.getTime()));
+                } else {
+                    um.getThread().sendMsgBack(new BaseMsg(BaseMsg.UNDEFINED_FAILED));
+                }
+            }
+            else if(userType == 2){
+                Admin admin = loginService.hasMatchAdmin(id, password);
+                System.out.println("成功查找到此人！");
+                if (admin != null) {
+                    um.getThread().sendMsgBack(LoginReturnMsg.createLoginReturnMsg(2, admin.getUserName(), admin.getId(), admin.getEmail(), admin.getPassword(), 0, admin.getTime()));
+                } else {
+                    um.getThread().sendMsgBack(new BaseMsg(BaseMsg.UNDEFINED_FAILED));
+                }
+            }
+            else {
                 um.getThread().sendMsgBack(new BaseMsg(BaseMsg.UNDEFINED_FAILED));
             }
         } else {
-            um.getThread().sendMsgBack(new BaseMsg(BaseMsg.TIME_OUT));
+            um.getThread().sendMsgBack(new BaseMsg(BaseMsg.UNDEFINED_FAILED));
         }
 
     }

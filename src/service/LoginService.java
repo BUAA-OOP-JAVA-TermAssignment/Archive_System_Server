@@ -1,11 +1,12 @@
 package service;
 
 import dao.DaoSet;
+import dao.domain.Admin;
 import dao.domain.User;
 
 public class LoginService {
 
-    public boolean hasMatchAdmin(String id, String password) {
+    public Admin hasMatchAdmin(String id, String password) {
         return DaoSet.adminDao.getMatchAdmin(id, password);
     }
 
@@ -13,7 +14,7 @@ public class LoginService {
         return DaoSet.userDao.addUser(user);
     }
 
-    public boolean hasMatchUser(String id, String password){
+    public User hasMatchUser(String id, String password){
         return DaoSet.userDao.getMatchUser(id, password);
     }
 }

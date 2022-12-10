@@ -43,7 +43,7 @@ public interface AdminDao {
      * @param password 密码
      * @return true 存在 false 不存在
      */
-    public boolean getMatchAdmin(String username, String password);
+    public Admin getMatchAdmin(String username, String password);
 
     /**
      * 批量删除用户

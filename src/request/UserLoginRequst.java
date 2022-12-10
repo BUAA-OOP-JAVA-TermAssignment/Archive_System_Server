@@ -13,6 +13,8 @@ public class UserLoginRequst extends BaseRequst {
         this.ct = ct;
     }
 
+    public int getUserType(){return um.getUserType();}
+
     public String getId() {
         return um.getId();
     }
