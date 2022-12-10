@@ -1,10 +1,8 @@
 package server.thread;
 
 import dao.domain.User;
-import message.AdminLoginRequestMsg;
 import message.BaseMsg;
 import message.UserLoginRequestMsg;
-import request.AdminLoginRequst;
 import request.BaseRequst;
 import request.UserLoginRequst;
 
@@ -67,8 +65,6 @@ public class ClientThread implements Runnable {
         if (msg instanceof UserLoginRequestMsg) {
             System.out.println("成功解析报文！");
             return new UserLoginRequst((UserLoginRequestMsg) msg, this);
-        } else if (msg instanceof AdminLoginRequestMsg) {
-            return new AdminLoginRequst((AdminLoginRequestMsg) msg, this);
         }
         return null;
     }

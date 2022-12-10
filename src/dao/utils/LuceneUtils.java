@@ -25,17 +25,17 @@ public class LuceneUtils {
      * @return The internal ID of the document in the index; or -1 if not found.
      * @throws IOException
      */
-    public static int findByDocno(IndexReader index, String fieldDocno, String docno) throws IOException {
-        BytesRef term = new BytesRef(docno);
-        PostingsEnum posting = MultiTerms.getTermPostingsEnum(index, fieldDocno, term, PostingsEnum.NONE);
-        if (posting != null) {
-            int docid = posting.nextDoc();
-            if (docid != PostingsEnum.NO_MORE_DOCS) {
-                return docid;
-            }
-        }
-        return -1;
-    }
+//    public static int findByDocno(IndexReader index, String fieldDocno, String docno) throws IOException {
+//        BytesRef term = new BytesRef(docno);
+//        PostingsEnum posting = MultiTerms.getTermPostingsEnum(index, fieldDocno, term, PostingsEnum.NONE);
+//        if (posting != null) {
+//            int docid = posting.nextDoc();
+//            if (docid != PostingsEnum.NO_MORE_DOCS) {
+//                return docid;
+//            }
+//        }
+//        return -1;
+//    }
 
     /**
      * Get the DocNo (external ID) of a document stored in the index by its internal id.

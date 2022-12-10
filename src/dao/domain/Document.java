@@ -8,23 +8,61 @@ public class Document {
     private String Id;
     private String name;
     private String author;
+
+    private String content;
     private String publish;
     private String introduction;
     private String language;
     private Date uploadDate;
     private int downloadCnt;
 
-    public Document(){}
-    public Document(String Id, String name, String author, String publish, String introduction, String language, Date uploadDate, int downloadCnt){
+    public Document() {
+    }
+
+    /**
+     * @param Id
+     * @param name
+     * @param author
+     * @param publish
+     * @param introduction
+     * @param language
+     * @param uploadDate
+     * @param downloadCnt
+     */
+    public Document(String Id, String name, String author, String publish, String introduction, String language, Date uploadDate, int downloadCnt) {
         this.Id = Id;
         this.name = name;
         this.author = author;
+        this.content = null;
         this.publish = publish;
+        this.language = language;
         this.introduction = introduction;
         this.uploadDate = uploadDate;
         this.downloadCnt = downloadCnt;
     }
 
+    /**
+     * @param Id
+     * @param name
+     * @param author
+     * @param content
+     * @param publish
+     * @param introduction
+     * @param language
+     * @param uploadDate
+     * @param downloadCnt
+     */
+    public Document(String Id, String name, String author, String content, String publish, String introduction, String language, Date uploadDate, int downloadCnt) {
+        this.Id = Id;
+        this.name = name;
+        this.author = author;
+        this.content = content;
+        this.publish = publish;
+        this.language = language;
+        this.introduction = introduction;
+        this.uploadDate = uploadDate;
+        this.downloadCnt = downloadCnt;
+    }
 
     public void setId(String id) {
         this.Id = id;
@@ -36,6 +74,10 @@ public class Document {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public void setLanguage(String language) {
@@ -68,6 +110,10 @@ public class Document {
 
     public String getAuthor() {
         return author;
+    }
+
+    public String getContent() {
+        return content;
     }
 
     public String getIntroduction() {

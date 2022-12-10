@@ -64,7 +64,7 @@ public class FileUtils {
     }
 
 
-    public String readPdf(String src) throws IOException {
+    public static String readPdf(String src) throws IOException {
         //Loading an existing document
         File file = new File(src);
         PDDocument document = Loader.loadPDF(file);
