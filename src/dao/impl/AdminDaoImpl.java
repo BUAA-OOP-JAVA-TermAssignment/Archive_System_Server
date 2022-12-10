@@ -96,12 +96,12 @@ public class AdminDaoImpl implements AdminDao {
     }
 
     @Override
-    public Admin getMatchAdmin(String username, String password) {
+    public Admin getMatchAdmin(String id, String password) {
         cn = DBUtil.getConnection();
         try {
             assert cn != null;
             ps = cn.prepareStatement(MATCH_ADMIN_SQL);
-            ps.setString(1, username);
+            ps.setString(1, id);
             ps.setString(2, password);
             rs = ps.executeQuery();
             if (rs.next()) {
