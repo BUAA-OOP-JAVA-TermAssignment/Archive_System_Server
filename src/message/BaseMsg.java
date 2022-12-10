@@ -10,7 +10,7 @@ public class BaseMsg implements Serializable {
     public final static int SEARCH_ARCHIVE = 1 << 6;
     public final static int MODIFY_USER_INFO = 1 << 7;
     public final static int ADMIN_USER_EDIT = 1 << 8;
-    public final static int ADMIN_ARCHIVE_EDIT = 1 << 9;
+    public final static int DOWNLOADCNT_ADD = 1 << 9;
     public final static int DOWNLOAD_FILE_REQUEST = 1 << 10;
     private final int msgCode;
 

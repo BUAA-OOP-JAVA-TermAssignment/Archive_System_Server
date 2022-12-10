@@ -29,19 +29,5 @@ public class HelloWorld {
         lc.search("我爱JAVA");
     }
 
-    void addFile() {
-        //导入一些本地文件测试
-        for (int i = 1; i < 6; i++) {
-            String id = "EX-000" + i;
-            String name = "Love2Java" + i;
-            String author = "Hathoric";
-            String publisher = "HATHORIC PRESS";
-            String ab = "我爱JAVA，特别是JAVA 1." + i;
-            String language = "中文";
-            String path = "D:\\Archive_System\\origin_pdfs\\EX_000" + i + ".pdf";
-            Document doc = new Document(id, name, author, publisher, ab, language, new Date().toString(), 0);
-            UploadController.getInstance().saveDocument(doc, path);
-        }
-    }
 
 }

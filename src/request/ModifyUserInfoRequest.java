@@ -21,6 +21,6 @@ public class ModifyUserInfoRequest extends BaseRequst {
     public int getDownloadCnt(){return mi.getDownloadCnt();}
 
     public void execute(){
-        ModifyUserInfoController.getInstance().userModifyUserInfo(this);
+        ModifyUserInfoController.getInstance().ModifyUserInfo(this);
     }
 }
