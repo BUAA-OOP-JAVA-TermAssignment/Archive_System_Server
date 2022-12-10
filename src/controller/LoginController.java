@@ -58,8 +58,10 @@ public class LoginController {
         User user = new User(um.getId(), um.getName(), um.getPassword(), um.getEmail(), 0, new Date().toString());
         boolean isReg = loginService.userRegister(user);
         if (isReg) {
+            System.out.println("注册成功");
             um.getThread().sendMsgBack(new BaseMsg(BaseMsg.SUCCESS));
         } else {
+            System.out.println("注册失败");
             um.getThread().sendMsgBack(new BaseMsg(BaseMsg.UNDEFINED_FAILED));
         }
     }

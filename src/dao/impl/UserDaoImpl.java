@@ -31,7 +31,7 @@ public class UserDaoImpl implements UserDao {
             ps.setString(3, user.getPassword());
             ps.setString(4, user.getEmail());
             ps.setInt(5, user.getDownloadCnt());
-            ps.setString(6, user.getTime().toString());
+            ps.setString(6, user.getTime());
             int result = ps.executeUpdate();
             DBUtil.close(null, ps, cn);
         } catch (SQLException e) {
