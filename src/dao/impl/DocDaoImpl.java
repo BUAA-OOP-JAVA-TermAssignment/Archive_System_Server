@@ -22,10 +22,12 @@ public class DocDaoImpl implements DocDao {
     private static final String DELETE_DOC_SQL = "delete from Document where Id=?";
     private static final String EDIT_DOC_SQL = "update Document set name=?, author=?, publish=?, introduction=?, language=?";
     private static final String LIST_DOC_SQL = "select * from Document where name like ? or introduction like ?";
+
     @Override
-    public boolean save(Document bean) {
+    public boolean add(Document bean) {
+        if()
         cn = DBUtil.getConnection();
-        try{
+        try {
             assert cn != null;
             ps = cn.prepareStatement(ADD_DOC_SQL);
             ps.setString(1, bean.getId());
@@ -37,7 +39,7 @@ public class DocDaoImpl implements DocDao {
             ps.setString(7, bean.getUploadDate().toString());
             int result = ps.executeUpdate();
             DBUtil.close(null, ps, cn);
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
@@ -47,7 +49,7 @@ public class DocDaoImpl implements DocDao {
     @Override
     public boolean update(Document bean) {
         cn = DBUtil.getConnection();
-        try{
+        try {
             assert cn != null;
             ps = cn.prepareStatement(EDIT_DOC_SQL);
             ps.setString(1, bean.getName());
@@ -57,15 +59,10 @@ public class DocDaoImpl implements DocDao {
             ps.setString(5, bean.getLanguage());
             int result = ps.executeUpdate();
             DBUtil.close(null, ps, cn);
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
-        return true;
-    }
-
-    @Override
-    public boolean updateRemain(Document bean) {
         return true;
     }
 
@@ -75,12 +72,12 @@ public class DocDaoImpl implements DocDao {
         try {
             assert cn != null;
             ps = cn.prepareStatement(DELETE_DOC_SQL);
-            ps.setString(1,bean.getId());
+            ps.setString(1, bean.getId());
             int result = ps.executeUpdate();
             DBUtil.close(null, ps, cn);
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
-            return  false;
+            return false;
         }
         return true;
     }
@@ -89,14 +86,14 @@ public class DocDaoImpl implements DocDao {
     public List<Document> find(Document bean) {
         List<Document> list = new ArrayList<>();
         cn = DBUtil.getConnection();
-        try{
+        try {
             assert cn != null;
             ps = cn.prepareStatement(LIST_DOC_SQL);
             rs = ps.executeQuery();
-            while(rs.next()){
-                list.add(new Document(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getDate(7)));
+            while (rs.next()) {
+                list.add(new Document(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getDate(7)));
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
@@ -107,12 +104,12 @@ public class DocDaoImpl implements DocDao {
     public Document findById(Document bean) {
         cn = DBUtil.getConnection();
         Document result = null;
-        try{
+        try {
             assert cn != null;
             ps = cn.prepareStatement(MATCH_DOC_SQL);
-            ps.setString(1,bean.getId());
+            ps.setString(1, bean.getId());
             rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 result = new Document();
                 result.setId(rs.getString("Id"));
                 result.setName(rs.getString("name"));
@@ -122,16 +119,16 @@ public class DocDaoImpl implements DocDao {
                 result.setLanguage(rs.getString("language"));
                 result.setUploadDate(rs.getDate("uploadDate"));
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
         return result;
     }
 
-    public boolean deleteDocuments(List<Document> documentList){
-        for(Document bean : documentList){
-            if(!delete(bean)){
+    public boolean deleteDocuments(List<Document> documentList) {
+        for (Document bean : documentList) {
+            if (!delete(bean)) {
                 return false;
             }
         }

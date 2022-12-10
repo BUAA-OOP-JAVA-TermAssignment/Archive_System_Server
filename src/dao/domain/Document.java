@@ -9,21 +9,34 @@ public class Document {
     private String name;
     private String author;
     private String publish;
+
+    private String content;
     private String introduction;
     private String language;
     private Date uploadDate;
-    private int state;
 
-    public Document(){}
-    public Document(String Id, String name, String author, String publish, String introduction, String language, Date uploadDate){
+    public Document() {
+    }
+
+    public Document(String Id, String name, String author, String content, String publish, String introduction, String language, Date uploadDate) {
         this.Id = Id;
         this.name = name;
         this.author = author;
+        this.content = content;
         this.publish = publish;
         this.introduction = introduction;
         this.uploadDate = uploadDate;
     }
 
+    public Document(String Id, String name, String author, String publish, String introduction, String language, Date uploadDate) {
+        this.Id = Id;
+        this.name = name;
+        this.author = author;
+        this.content = null;
+        this.publish = publish;
+        this.introduction = introduction;
+        this.uploadDate = uploadDate;
+    }
 
     public void setId(String id) {
         this.Id = id;
@@ -53,10 +66,6 @@ public class Document {
         this.uploadDate = uploadDate;
     }
 
-    public void setState(int state) {
-        this.state = state;
-    }
-
     public String getId() {
         return Id;
     }
@@ -79,10 +88,6 @@ public class Document {
 
     public Date getUploadDate() {
         return uploadDate;
-    }
-
-    public int getState() {
-        return state;
     }
 
     public String getPublish() {

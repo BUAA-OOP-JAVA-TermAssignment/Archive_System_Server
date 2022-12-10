@@ -40,15 +40,13 @@ import java.util.zip.GZIPInputStream;
  */
 public class Core {
 
-    static String pathCorpus = "";
-    static String pathIndex = "";
+    //pdf文件路径
+    static final String PATH_CORPUS = "D:\\Archive_System\\files";
+    static final String PATH_INDEX = "D:\\Archive_System\\example_index_lucene";
 
     static void buildIndex() throws IOException {
         //欲输入的数据路径和索引表的存放路径
-        String pathCorpus = Core.pathCorpus;
-        String pathIndex = Core.pathIndex;
-
-        Directory dir = FSDirectory.open(new File(pathIndex).toPath());
+        Directory dir = FSDirectory.open(new File(Core.PATH_INDEX).toPath());
 
         Analyzer analyzer = new Analyzer() {
             @Override
@@ -57,27 +55,29 @@ public class Core {
                 TokenStreamComponents ts = new TokenStreamComponents(new StandardTokenizer());
                 // Step 2: 所有token转换为小写
                 ts = new TokenStreamComponents(ts.getSource(), new LowerCaseFilter(ts.getTokenStream()));
-                // Step 3: whether to remove stop words (unnecessary to remove stop words unless you can't afford the extra disk space)
-                // Uncomment the following line to remove stop words
+                // Step 3: 是否要停用掉语气词
                 // ts = new TokenStreamComponents( ts.getSource(), new StopFilter( ts.getTokenStream(), EnglishAnalyzer.ENGLISH_STOP_WORDS_SET ) );
-                // Step 4: whether to apply stemming
-                // Uncomment one of the following two lines to apply Krovetz or Porter stemmer (Krovetz is more common for IR research)
+                // Step 4: 应用哪种分词器
                 ts = new TokenStreamComponents(ts.getSource(), new KStemFilter(ts.getTokenStream()));
+                // 也可以使用Porter分词器
                 // ts = new TokenStreamComponents( ts.getSource(), new PorterStemFilter( ts.getTokenStream() ) );
                 return ts;
             }
         };
 
         IndexWriterConfig config = new IndexWriterConfig(analyzer);
-        // Note that IndexWriterConfig.OpenMode.CREATE will override the original index in the folder
+        // 每次新建索引都会覆盖原来的索引
         config.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
-        // Lucene's default BM25Similarity stores document field length using a "low-precision" method.
-        // Use the BM25SimilarityOriginal to store the original document length values in index.
+
+        // 使用了BM25SimilarityOriginal来存储原始值
         config.setSimilarity(new BM25SimilarityOriginal());
 
         IndexWriter ixwriter = new IndexWriter(dir, config);
 
-        // This is the field setting for metadata field (no tokenization, searchable, and stored).
+        //ixwriter.deleteAll();
+
+
+        //metadata field (no tokenization, searchable, and stored).
         FieldType fieldTypeMetadata = new FieldType();
         fieldTypeMetadata.setOmitNorms(true);
         fieldTypeMetadata.setIndexOptions(IndexOptions.DOCS);
@@ -85,7 +85,7 @@ public class Core {
         fieldTypeMetadata.setTokenized(false);
         fieldTypeMetadata.freeze();
 
-        // This is the field setting for normal text field (tokenized, searchable, store document vectors)
+        //normal text field (tokenized, searchable, store document vectors)
         FieldType fieldTypeText = new FieldType();
         fieldTypeText.setIndexOptions(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS);
         fieldTypeText.setStoreTermVectors(true);
@@ -94,12 +94,9 @@ public class Core {
         fieldTypeText.setStored(true);
         fieldTypeText.freeze();
 
-        // You need to iteratively read each document from the example corpus file,
-        // create a Document object for the parsed document, and add that
-        // Document object by calling addDocument().
 
-        // Well, the following only works for small text files. DO NOT follow this part for large dataset files.
-        InputStream instream = new GZIPInputStream(new FileInputStream(pathCorpus));
+        //下面对文件的读取方式比较粗暴，不适合大数据量的文本。
+        InputStream instream = new GZIPInputStream(new FileInputStream(Core.PATH_CORPUS));
         String corpusText = new String(IOUtils.toByteArray(instream), "UTF-8");
         instream.close();
 
@@ -118,7 +115,6 @@ public class Core {
             String source = matcher.group(4).trim();
             String text = matcher.group(5).trim();
 
-            // Create a Document object
             Document d = new Document();
             // Add each field to the document with the appropriate field type options
             d.add(new Field("docno", docno, fieldTypeMetadata));
@@ -131,17 +127,15 @@ public class Core {
             ixwriter.addDocument(d);
         }
 
-        // remember to close both the index writer and the directory
         ixwriter.close();
         dir.close();
     }
 
     static void getNumOfIndex() throws IOException {
         // modify to your index path
-        String pathIndex = Core.pathIndex;
 
         // First, open the directory
-        Directory dir = FSDirectory.open(new File(pathIndex).toPath());
+        Directory dir = FSDirectory.open(new File(Core.PATH_INDEX).toPath());
         // Then, open an IndexReader to access your index
         IndexReader index = DirectoryReader.open(dir);
 
@@ -154,13 +148,12 @@ public class Core {
     }
 
     static void listByFrequency() throws IOException {
-        String pathIndex = Core.pathIndex;
 
         // Let's just retrieve the posting list for the term "reformulation" in the "text" field
         String field = "text";
         String term = "reformulation";
 
-        Directory dir = FSDirectory.open(new File(pathIndex).toPath());
+        Directory dir = FSDirectory.open(new File(Core.PATH_INDEX).toPath());
         IndexReader index = DirectoryReader.open(dir);
 
         // The following line reads the posting list of the term in a specific index field.
@@ -184,13 +177,12 @@ public class Core {
     }
 
     static void listByPosition() throws IOException {
-        String pathIndex = Core.pathIndex;
 
         // Let's just retrieve the posting list for the term "reformulation" in the "text" field
         String field = "text";
         String term = "reformulation";
 
-        Directory dir = FSDirectory.open(new File(pathIndex).toPath());
+        Directory dir = FSDirectory.open(new File(Core.PATH_INDEX).toPath());
         IndexReader index = DirectoryReader.open(dir);
 
         // we also print out external ID
@@ -225,13 +217,12 @@ public class Core {
     }
 
     static void vistIndexedDocument() throws IOException {
-        String pathIndex = Core.pathIndex;
 
         // let's just retrieve the document vector (only the "text" field) for the Document with internal ID=21
         String field = "text";
         int docid = 21;
 
-        Directory dir = FSDirectory.open(new File(pathIndex).toPath());
+        Directory dir = FSDirectory.open(new File(Core.PATH_INDEX).toPath());
         IndexReader index = DirectoryReader.open(dir);
 
         Terms vector = index.getTermVector(docid, field); // Read the document's document vector.
@@ -265,10 +256,9 @@ public class Core {
     }
 
     static void getDocLength() throws IOException {
-        String pathIndex = Core.pathIndex;
         String field = "text";
 
-        Directory dir = FSDirectory.open(new File(pathIndex).toPath());
+        Directory dir = FSDirectory.open(new File(Core.PATH_INDEX).toPath());
         IndexReader ixreader = DirectoryReader.open(dir);
 
         // we also print out external ID
@@ -292,13 +282,12 @@ public class Core {
     }
 
     static void getTextCorpusStatics() throws IOException {
-        String pathIndex = Core.pathIndex;
 
         // Let's just count the IDF and P(w|corpus) for the word "reformulation" in the "text" field
         String field = "text";
         String term = "reformulation";
 
-        Directory dir = FSDirectory.open(new File(pathIndex).toPath());
+        Directory dir = FSDirectory.open(new File(Core.PATH_INDEX).toPath());
         IndexReader index = DirectoryReader.open(dir);
 
         int N = index.numDocs(); // the total number of documents in the index
@@ -319,12 +308,11 @@ public class Core {
     }
 
     static void listVocabulary() throws IOException {
-        String pathIndex = Core.pathIndex;
 
         // Let's just retrieve the vocabulary of the "text" field
         String field = "text";
 
-        Directory dir = FSDirectory.open(new File(pathIndex).toPath());
+        Directory dir = FSDirectory.open(new File(Core.PATH_INDEX).toPath());
         IndexReader index = DirectoryReader.open(dir);
 
         double N = index.numDocs();
@@ -357,7 +345,6 @@ public class Core {
     }
 
     static void query() throws ParseException, IOException {
-        String pathIndex = Core.pathIndex;
 
         // Analyzer specifies options for text tokenization and normalization (e.g., stemming, stop words removal, case-folding)
         Analyzer analyzer = new Analyzer() {
@@ -385,7 +372,7 @@ public class Core {
         Query query = parser.parse(qstr); // this is Lucene's query object
 
         // Okay, now let's open an index and search for documents
-        Directory dir = FSDirectory.open(new File(pathIndex).toPath());
+        Directory dir = FSDirectory.open(new File(Core.PATH_INDEX).toPath());
         IndexReader index = DirectoryReader.open(dir);
 
         // you need to create a Lucene searcher
