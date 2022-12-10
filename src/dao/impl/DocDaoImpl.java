@@ -4,10 +4,7 @@ import dao.DocDao;
 import dao.domain.Document;
 import dao.utils.DBUtil;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +15,7 @@ public class DocDaoImpl implements DocDao {
     private static ResultSet rs = null;
 
     private static final String MATCH_DOC_SQL = "select Id from Document where Id=?";
-    private static final String ADD_DOC_SQL = "insert into Document values(?, ?, ?, ?, ?, ?, ?)";
+    private static final String ADD_DOC_SQL = "insert into Document values(?, ?, ?, ?, ?, ?, ?, 0)";
     private static final String DELETE_DOC_SQL = "delete from Document where Id=?";
     private static final String EDIT_DOC_SQL = "update Document set name=?, author=?, publish=?, introduction=?, language=?";
     private static final String LIST_DOC_SQL = "select * from Document where name like ? or introduction like ?";
@@ -34,7 +31,7 @@ public class DocDaoImpl implements DocDao {
             ps.setString(4, bean.getPublish());
             ps.setString(5, bean.getIntroduction());
             ps.setString(6, bean.getLanguage());
-            ps.setString(7, bean.getUploadDate().toString());
+            ps.setDate(7, (Date) bean.getUploadDate());
             int result = ps.executeUpdate();
             DBUtil.close(null, ps, cn);
         }catch(SQLException e){
@@ -94,7 +91,7 @@ public class DocDaoImpl implements DocDao {
             ps = cn.prepareStatement(LIST_DOC_SQL);
             rs = ps.executeQuery();
             while(rs.next()){
-                list.add(new Document(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getDate(7)));
+                list.add(new Document(rs.getString(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getDate(7),rs.getInt(8)));
             }
         }catch (SQLException e){
             e.printStackTrace();

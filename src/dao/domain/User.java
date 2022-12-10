@@ -11,7 +11,7 @@ public class User {
 
     private String email;
 
-    private Integer status;
+    private int downloadCnt;
 
     private Date createTime;
 
@@ -54,12 +54,12 @@ public class User {
         this.email = email;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Integer getDownloadCnt() {
+        return downloadCnt;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setDownloadCnt(int downloadCnt) {
+        this.downloadCnt = downloadCnt;
     }
 
     public Date getCreateTime() {

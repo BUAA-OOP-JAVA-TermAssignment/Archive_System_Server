@@ -12,16 +12,17 @@ public class Document {
     private String introduction;
     private String language;
     private Date uploadDate;
-    private int state;
+    private int downloadCnt;
 
     public Document(){}
-    public Document(String Id, String name, String author, String publish, String introduction, String language, Date uploadDate){
+    public Document(String Id, String name, String author, String publish, String introduction, String language, Date uploadDate, int downloadCnt){
         this.Id = Id;
         this.name = name;
         this.author = author;
         this.publish = publish;
         this.introduction = introduction;
         this.uploadDate = uploadDate;
+        this.downloadCnt = downloadCnt;
     }
 
 
@@ -53,8 +54,8 @@ public class Document {
         this.uploadDate = uploadDate;
     }
 
-    public void setState(int state) {
-        this.state = state;
+    public void setDownloadCnt(int downloadCnt) {
+        this.downloadCnt = downloadCnt;
     }
 
     public String getId() {
@@ -81,8 +82,8 @@ public class Document {
         return uploadDate;
     }
 
-    public int getState() {
-        return state;
+    public int getDownloadCnt() {
+        return downloadCnt;
     }
 
     public String getPublish() {
