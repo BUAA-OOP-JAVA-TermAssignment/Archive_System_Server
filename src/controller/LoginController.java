@@ -1,9 +1,9 @@
 package controller;
 
 import dao.domain.User;
-import message.FailMsg;
-import message.SuccessMsg;
-import request.AdminLoginRequst;
+import message.BaseMsg;
+import message.LoginReturnMsg;
+import message.AdminArchiveEditMsg;
 import request.UserLoginRequst;
 import service.LoginService;
 
@@ -60,46 +60,26 @@ public class LoginController {
     }
 
     /**
-     * 用户登录检查
+     * 用户和管理员登录检查
      *
      * @param um 来自客户端的登入消息
      */
     public void userLoginCheck(UserLoginRequst um) {
-        String username = um.getUsername();
+        //TODO:这里返回值需要修改！
+        String id = um.getId();
         String password = um.getPassword();
-        if (username != null && password != null) {
-            boolean haveMatch = loginService.hasMatchUser(username, password);
+        if (id != null && password != null) {
+            boolean haveMatch = loginService.hasMatchUser(id, password);
             System.out.println("成功查找到此人！");
             if (haveMatch) {
-                um.getThread().sendMsgBack(new SuccessMsg());
+                um.getThread().sendMsgBack(new BaseMsg(BaseMsg.SUCCESS));
             } else {
-                um.getThread().sendMsgBack(new FailMsg());
+                um.getThread().sendMsgBack(new BaseMsg(BaseMsg.UNDEFINED_FAILED));
             }
         } else {
-            um.getThread().sendMsgBack(new FailMsg());
+            um.getThread().sendMsgBack(new BaseMsg(BaseMsg.TIME_OUT));
         }
 
-    }
-
-    /**
-     * 管理员登录检查
-     *
-     * @param am
-     */
-    public void adminLoginCheck(AdminLoginRequst am) {
-
-        String username = am.getUsername();
-        String password = am.getPassword();
-        if (username != null && password != null) {
-            boolean haveMatch = loginService.hasMatchAdmin(username, password);
-            if (haveMatch) {
-                am.getThread().sendMsgBack(new SuccessMsg());
-            } else {
-                am.getThread().sendMsgBack(new FailMsg());
-            }
-        } else {
-            am.getThread().sendMsgBack(new FailMsg());
-        }
     }
 
 }

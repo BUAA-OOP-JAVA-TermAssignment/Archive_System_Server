@@ -18,29 +18,40 @@ public class AdminDaoImpl implements AdminDao {
     private static ResultSet rs = null;
 
     private static final String MATCH_ADMIN_SQL = "select username,password from admin where username=? and password=?";
-    private static final String ADD_ADMIN_SQL = "insert into admin values(null,?,?,?)";
+    private static final String ADD_ADMIN_SQL = "insert into admin values(?,?,?,?)";
     private static final String DELETE_ADMIN_SQL = "delete from admin where id=?";
     private static final String EDIT_ADMIN_SQL = "update admin set username=?,password=?,phone=?where id=?";
     private static final String LIST_ADMIN_SQL = "select * from admin";
 
     @Override
     public boolean addAdmin(Admin admin) {
-        return AddEdit(admin, ADD_ADMIN_SQL);
+        cn = DBUtil.getConnection();
+        try{
+            assert cn != null;
+            ps = cn.prepareStatement(ADD_ADMIN_SQL);
+            ps.setString(1, admin.getId());
+            ps.setString(2, admin.getUserName());
+            ps.setString(3, admin.getPassword());
+            ps.setString(4, admin.getPhone());
+            int result = ps.executeUpdate();
+            DBUtil.close(null, ps, cn);
+        }catch (SQLException e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     @Override
     public boolean editAdmin(Admin admin) {
-        return AddEdit(admin, EDIT_ADMIN_SQL);
-    }
-
-    private boolean AddEdit(Admin admin, String updateAdminSql) {
         cn = DBUtil.getConnection();
         try{
             assert cn != null;
-            ps = cn.prepareStatement(updateAdminSql);
+            ps = cn.prepareStatement(EDIT_ADMIN_SQL);
             ps.setString(1, admin.getUserName());
             ps.setString(2, admin.getPassword());
             ps.setString(3, admin.getPhone());
+            ps.setString(4, admin.getId());
             int result = ps.executeUpdate();
             DBUtil.close(null, ps, cn);
         }catch (SQLException e){
@@ -74,7 +85,7 @@ public class AdminDaoImpl implements AdminDao {
             ps = cn.prepareStatement(LIST_ADMIN_SQL);
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new Admin(rs.getInt(1), rs.getString(2),rs.getString(3), rs.getString(4)));
+                list.add(new Admin(rs.getString(1), rs.getString(2),rs.getString(3), rs.getString(4)));
                 //放到集合中
             }
         }catch (SQLException e){

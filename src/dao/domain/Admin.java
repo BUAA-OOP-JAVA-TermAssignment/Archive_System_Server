@@ -1,7 +1,7 @@
 package dao.domain;
 
 public class Admin {
-    private int id;
+    private String id;
 
     private String userName;
 
@@ -9,18 +9,18 @@ public class Admin {
 
     private String phone;
 
-    public Admin(int id, String userName, String password, String phone){
+    public Admin(String id, String userName, String password, String phone){
         this.id = id;
         this.userName = userName;
         this.password = password;
         this.phone = phone;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

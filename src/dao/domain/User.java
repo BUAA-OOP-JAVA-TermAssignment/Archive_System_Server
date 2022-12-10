@@ -3,7 +3,7 @@ package dao.domain;
 import java.util.Date;
 
 public class User {
-    private int id;
+    private String id;
 
     private String userName;
 
@@ -11,22 +11,22 @@ public class User {
 
     private String email;
 
-    private Integer status;
+    private int downloadCnt;
 
     private Date createTime;
 
-    public User(int id, String userName,String password,String email){
+    public User(String id, String userName,String password,String email){
         this.id = id;
         this.userName = userName;
         this.password = password;
         this.email = email;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -54,12 +54,12 @@ public class User {
         this.email = email;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Integer getDownloadCnt() {
+        return downloadCnt;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setDownloadCnt(int downloadCnt) {
+        this.downloadCnt = downloadCnt;
     }
 
     public Date getCreateTime() {

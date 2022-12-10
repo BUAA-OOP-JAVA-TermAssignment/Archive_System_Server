@@ -1,9 +1,9 @@
 package server.thread;
 
 import dao.domain.User;
-import message.AdminLoginMsg;
+import message.AdminLoginRequestMsg;
 import message.BaseMsg;
-import message.UserLoginMsg;
+import message.UserLoginRequestMsg;
 import request.AdminLoginRequst;
 import request.BaseRequst;
 import request.UserLoginRequst;
@@ -54,10 +54,9 @@ public class ClientThread implements Runnable {
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                 BaseMsg msg = (BaseMsg) ois.readObject();
                 System.out.println("成功收到报文！");
-
-                BaseRequst requst = msgToRequst(msg);
-                assert requst != null;
-                requst.execute();
+                BaseRequst request = msgToRequst(msg);
+                assert request != null;
+                request.execute();
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -65,11 +64,11 @@ public class ClientThread implements Runnable {
     }
 
     private BaseRequst msgToRequst(BaseMsg msg) {
-        if (msg instanceof UserLoginMsg) {
+        if (msg instanceof UserLoginRequestMsg) {
             System.out.println("成功解析报文！");
-            return new UserLoginRequst((UserLoginMsg) msg, this);
-        } else if (msg instanceof AdminLoginMsg) {
-            return new AdminLoginRequst((AdminLoginMsg) msg, this);
+            return new UserLoginRequst((UserLoginRequestMsg) msg, this);
+        } else if (msg instanceof AdminLoginRequestMsg) {
+            return new AdminLoginRequst((AdminLoginRequestMsg) msg, this);
         }
         return null;
     }
