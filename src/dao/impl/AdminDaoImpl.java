@@ -85,7 +85,7 @@ public class AdminDaoImpl implements AdminDao {
             ps = cn.prepareStatement(LIST_ADMIN_SQL);
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new Admin(rs.getString(1), rs.getString(2),rs.getString(3), rs.getString(4), rs.getDate(5)));
+                list.add(new Admin(rs.getString(1), rs.getString(2),rs.getString(3), rs.getString(4), rs.getString(5)));
                 //放到集合中
             }
         }catch (SQLException e){
@@ -105,7 +105,7 @@ public class AdminDaoImpl implements AdminDao {
             ps.setString(2, password);
             rs = ps.executeQuery();
             if (rs.next()) {
-                return new Admin(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getDate(5));
+                return new Admin(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
             }
         } catch (SQLException e) {
             e.printStackTrace();
