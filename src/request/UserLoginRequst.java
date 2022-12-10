@@ -2,11 +2,13 @@ package request;
 
 import controller.LoginController;
 import message.UserLoginRequestMsg;
+import message.UserRegisterRequestMsg;
 import server.thread.ClientThread;
 
 public class UserLoginRequst extends BaseRequst {
 
     UserLoginRequestMsg um;
+
 
     public UserLoginRequst(UserLoginRequestMsg um, ClientThread ct) {
         super(ct);

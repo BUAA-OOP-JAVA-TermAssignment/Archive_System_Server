@@ -24,10 +24,10 @@ public interface UserDao {
     /**
      * 编辑用户信息
      *
-     * @param user 用户信息
+     * @param id,password,email,downloadCnt 用户id，密码，邮箱，下载次数
      * @return true 成功 false 失败
      */
-    public boolean editUser(User user);
+    public boolean editUser(String id, String password, String email, int downloadCnt);
 
     /**
      * 获取所有用户信息

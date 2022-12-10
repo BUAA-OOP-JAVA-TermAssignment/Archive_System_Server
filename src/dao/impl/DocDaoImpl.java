@@ -94,7 +94,7 @@ public class DocDaoImpl implements DocDao {
             ps = cn.prepareStatement(LIST_DOC_SQL);
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new Document(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getDate(7), rs.getInt(8)));
+                list.add(new Document(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getInt(8)));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -120,7 +120,7 @@ public class DocDaoImpl implements DocDao {
                 result.setPublish(rs.getString("publish"));
                 result.setIntroduction(rs.getString("introduction"));
                 result.setLanguage(rs.getString("language"));
-                result.setUploadDate(rs.getDate("uploadDate"));
+                result.setUploadDate(rs.getString("uploadDate"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -11,9 +11,9 @@ public class Admin {
 
     private String email;
 
-    private Date time;
+    private String time;
 
-    public Admin(String id, String userName, String password, String email, Date time){
+    public Admin(String id, String userName, String password, String email, String time){
         this.id = id;
         this.userName = userName;
         this.password = password;
@@ -45,11 +45,11 @@ public class Admin {
         this.email = email;
     }
 
-    public Date getTime(){
+    public String getTime(){
         return time;
     }
 
-    public void setTime(Date time){
+    public void setTime(String time){
         this.time = time;
     }
     public String getUserName() {

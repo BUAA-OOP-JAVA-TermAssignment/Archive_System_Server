@@ -6,7 +6,10 @@ import message.BaseMsg;
 import message.LoginReturnMsg;
 import message.AdminArchiveEditMsg;
 import request.UserLoginRequst;
+import request.UserRegisterRequest;
 import service.LoginService;
+
+import java.util.Date;
 
 /**
  * @author pcpas
@@ -49,14 +52,17 @@ public class LoginController {
     /**
      * 用户注册
      *
-     * @param user 用户信息
+     * @param um 来自客户端的注册消息
      */
-    public void userRegister(User user) {
+    public void userRegister(UserRegisterRequest um) {
+        User user = new User(um.getId(), um.getName(), um.getPassword(), um.getEmail(), 0, new Date().toString());
         boolean isReg = loginService.userRegister(user);
         if (isReg) {
-            System.out.println("注册成功！");
+            System.out.println("注册成功");
+            um.getThread().sendMsgBack(new BaseMsg(BaseMsg.SUCCESS));
         } else {
-            System.out.println("注册失败~");
+            System.out.println("注册失败");
+            um.getThread().sendMsgBack(new BaseMsg(BaseMsg.UNDEFINED_FAILED));
         }
     }
 
@@ -73,10 +79,11 @@ public class LoginController {
         if (id != null && password != null) {
             if(userType == 1){
                 User user = loginService.hasMatchUser(id, password);
-                System.out.println("成功查找到此人！");
                 if (user != null) {
+                    System.out.println("成功查找到此人！");
                     um.getThread().sendMsgBack(LoginReturnMsg.createLoginReturnMsg(1, user.getUserName(), user.getId(), user.getEmail(), user.getPassword(), user.getDownloadCnt(), user.getTime()));
                 } else {
+                    System.out.println("没有匹配！");
                     um.getThread().sendMsgBack(new BaseMsg(BaseMsg.UNDEFINED_FAILED));
                 }
             }
