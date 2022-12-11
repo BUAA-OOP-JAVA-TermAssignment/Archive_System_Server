@@ -5,6 +5,10 @@ import message.UserLoginRequestMsg;
 import message.UserRegisterRequestMsg;
 import server.thread.ClientThread;
 
+/**
+ * µÇÂ¼ÒªÇó
+ * @author Hathoric
+ */
 public class UserLoginRequst extends BaseRequst {
 
     UserLoginRequestMsg um;

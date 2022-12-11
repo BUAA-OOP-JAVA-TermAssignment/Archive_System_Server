@@ -25,6 +25,15 @@ public class SearchReturnMsg extends BaseMsg {
         private float score;
         private String matchedText;
 
+        /**
+         * 构造类
+         * @param id 学工号
+         * @param name 姓名
+         * @param author 作者
+         * @param matchedText 匹配文段
+         * @param downloadCnt 下载量
+         * @param score 匹配度
+         */
         Book(String id, String name, String author, String matchedText, String downloadCnt, float score) {
             this.Id = id;
             this.name = name;

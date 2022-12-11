@@ -4,6 +4,9 @@ import controller.LoginController;
 import message.BaseMsg;
 import server.thread.ClientThread;
 
+/**
+ * 基本要求
+ */
 public abstract class BaseRequst {
     protected ClientThread ct;
 

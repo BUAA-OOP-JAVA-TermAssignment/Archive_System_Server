@@ -2,6 +2,10 @@ package message;
 
 import java.io.Serializable;
 
+/**
+ * 基础报文
+ * @author Hathoric
+ */
 public class BaseMsg implements Serializable {
     public final static int SUCCESS = 0, UNDEFINED_FAILED = -1, TIME_OUT = -2;
     public final static int LOGIN = 1 << 3;

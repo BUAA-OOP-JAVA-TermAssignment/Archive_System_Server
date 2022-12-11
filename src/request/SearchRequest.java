@@ -4,6 +4,9 @@ import controller.SearchController;
 import message.SearchRequestMsg;
 import server.thread.ClientThread;
 
+/**
+ * ËÑË÷ÒªÇó
+ */
 public class SearchRequest extends BaseRequst {
 
     SearchRequestMsg srm = null;
