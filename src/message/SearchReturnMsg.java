@@ -41,6 +41,8 @@ public class SearchReturnMsg extends BaseMsg {
         bookArrayList.add(new Book(id, name, author, matchedText, downloadCnt));
     }
 
+    public int getBookNum(){return bookArrayList.size();}
+
     public String getBookId(int inx) {
         return bookArrayList.get(inx).Id;
     }
