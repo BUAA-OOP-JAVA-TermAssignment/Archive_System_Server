@@ -61,8 +61,11 @@ public class ClientThread implements Runnable {
             while ((len = bis.read(data)) != -1) {
                 outputStream.write(data, 0, len);
             }
+            outputStream.flush();
+            byte[] bytes = {'E','O','F'};
+            outputStream.write(bytes);
+            outputStream.flush();
             bis.close();
-            outputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Download in thread failed!");
