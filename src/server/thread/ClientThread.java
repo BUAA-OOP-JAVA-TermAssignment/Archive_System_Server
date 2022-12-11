@@ -62,7 +62,7 @@ public class ClientThread implements Runnable {
                 outputStream.write(data, 0, len);
             }
             outputStream.flush();
-            byte[] bytes = {'E','O','F'};
+            byte[] bytes = {'E', 'O', 'F'};
             outputStream.write(bytes);
             outputStream.flush();
             bis.close();
@@ -82,10 +82,18 @@ public class ClientThread implements Runnable {
     public void run() {
         try {
             while (true) {
+                if (socket.isClosed()) {
+                    System.out.println(socket + "lost connection!");
+                    return;
+                }
                 //以message为单位不断接受客户端传来的数据
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                 BaseMsg msg = (BaseMsg) ois.readObject();
-                System.out.println("成功收到报文！");
+                System.out.println("Receive msg");
+                if (msg.getMsgCode() == BaseMsg.DIS_CONNECT) {
+                    System.out.println(socket + "disconnect");
+                    return;
+                }
                 Thread.sleep(1000);
                 BaseRequst request = msgToRequst(msg);
                 assert request != null;

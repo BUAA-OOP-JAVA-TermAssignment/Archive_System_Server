@@ -39,6 +39,7 @@ public class UploadController {
         if (!dr.getThread().downloadFile(filePath)) {
             System.out.println("Download failed!");
         } else {
+            DaoSet.docDao.addDownloadCnt(dr.getDocId());
             System.out.println("Download successfully");
         }
     }

@@ -13,6 +13,8 @@ public interface DocDao {
      */
     boolean add(Document bean);
 
+    boolean addDownloadCnt(String docID);
+
     /**
      * ¸üĞÂÎÄµµ
      *

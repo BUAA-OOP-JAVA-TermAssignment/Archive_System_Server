@@ -15,9 +15,12 @@ public class DocDaoImpl implements DocDao {
     private static ResultSet rs = null;
 
     private static final String MATCH_DOC_SQL = "select * from document where id = ?";
+
     private static final String ADD_DOC_SQL = "insert into document values(?, ?, ?, ? ,0)";
     private static final String DELETE_DOC_SQL = "delete from document where id=?";
     private static final String EDIT_DOC_SQL = "update document set name=?, author=? where id=?";
+
+    private static final String ADD_DOWNLOAD_CNT = "update document set downloadCnt=downloadCnt+1 where id=?";
 
     /**
      * 添加文档
@@ -49,6 +52,24 @@ public class DocDaoImpl implements DocDao {
         }
         return true;
     }
+
+    @Override
+    public boolean addDownloadCnt(String docID) {
+        cn = DBUtil.getConnection();
+        try {
+            assert cn != null;
+            ps = cn.prepareStatement(ADD_DOWNLOAD_CNT);
+            ps.setString(1, docID);
+            int result = ps.executeUpdate();
+            DBUtil.close(null, ps, cn);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Add document download cnt failed!");
+            return false;
+        }
+        return true;
+    }
+
 
     /**
      * 更新文档信息
