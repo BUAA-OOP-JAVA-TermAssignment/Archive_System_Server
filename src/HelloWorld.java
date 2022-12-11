@@ -11,17 +11,18 @@ import java.util.Date;
  */
 public class HelloWorld {
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws IOException {
+        luceneInit();
 
     }
 
-    void serverInit(){
+    void serverInit() {
         ServerCore.getMyServer().runServer();
     }
 
-    void luceneInit() throws IOException {
+    static void luceneInit() throws IOException {
         LuceneCore.getInstance().buildIndex();
+        LuceneCore.getInstance().search("电路", 0, 5);
     }
 
     void addFile() {

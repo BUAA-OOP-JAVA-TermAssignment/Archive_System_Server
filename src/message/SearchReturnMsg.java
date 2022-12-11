@@ -1,5 +1,7 @@
 package message;
 
+import com.mysql.cj.x.protobuf.MysqlxNotice;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -21,14 +23,16 @@ public class SearchReturnMsg extends BaseMsg {
         private String author;
 
         private int downloadCnt;
+        private float score;
         private String matchedText;
 
-        Book(String id, String name, String author, String matchedText, String downloadCnt) {
+        Book(String id, String name, String author, String matchedText, String downloadCnt, float score) {
             this.Id = id;
             this.name = name;
             this.author = author;
             this.matchedText = matchedText;
             this.downloadCnt = Integer.parseInt(downloadCnt);
+            this.score = score;
         }
     }
 
@@ -37,11 +41,13 @@ public class SearchReturnMsg extends BaseMsg {
         this.bookArrayList = new ArrayList<>();
     }
 
-    public void addDoc(String id, String name, String author, String matchedText, String downloadCnt) {
-        bookArrayList.add(new Book(id, name, author, matchedText, downloadCnt));
+    public void addDoc(String id, String name, String author, String matchedText, String downloadCnt, float score) {
+        bookArrayList.add(new Book(id, name, author, matchedText, downloadCnt, score));
     }
 
-    public int getBookNum(){return bookArrayList.size();}
+    public int getBookNum() {
+        return bookArrayList.size();
+    }
 
     public String getBookId(int inx) {
         return bookArrayList.get(inx).Id;

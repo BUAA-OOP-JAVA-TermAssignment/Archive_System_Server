@@ -164,12 +164,13 @@ public class LuceneCore {
                 if (i <= offset) {
                     continue;
                 }
+                System.out.println(scoreDoc.score);
                 // 7、根据searcher和ScoreDoc对象获取具体的Document对象
                 Document document = indexSearcher.doc(scoreDoc.doc);
                 String content = document.get("content");
                 String matchSegment = highlighter.getBestFragment(analyzer, "content", content);
                 //打包发给前台
-                srm.addDoc(document.get("id"), document.get("name"), document.get("author"), matchSegment, document.get("downloadCnt"));
+                srm.addDoc(document.get("id"), document.get("name"), document.get("author"), matchSegment, document.get("downloadCnt"), scoreDoc.score);
             }
             return srm;
         } catch (Exception e) {
