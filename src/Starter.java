@@ -1,4 +1,6 @@
 import controller.UploadController;
+import dao.DaoSet;
+import dao.domain.Admin;
 import dao.domain.Document;
 import dao.lucene.LuceneCore;
 import server.ServerCore;
@@ -31,19 +33,25 @@ public class Starter {
             return;
         }
 
-        //服务器退出
+        //后台命令
         Scanner scanner = new Scanner(System.in);
         String command;
         while (true) {
-            command = scanner.next();
-            if ("QUIT".equals(command)) {
-                try {
-                    ServerCore.getMyServer().closeServer();
-                    return;
-                } catch (IOException e) {
-                    System.out.println("Close failed!");
-                    return;
-                }
+            command = scanner.nextLine();
+            switch (command) {
+                case "ADD ADMIN":
+                    addAdmin(scanner);
+                    break;
+                case "QUIT":
+                    try {
+                        ServerCore.getMyServer().closeServer();
+                        return;
+                    } catch (IOException e) {
+                        System.out.println("Close failed!");
+                        return;
+                    }
+                default:
+                    System.out.println("Undefined command!");
             }
         }
     }
@@ -69,6 +77,26 @@ public class Starter {
             Document doc = new Document(id, name, author, new Date().toString(), 0);
             UploadController.getInstance().saveDocument(doc, path);
         }
+    }
+
+    static void addAdmin(Scanner sc) {
+        String id, name, password, email, time;
+        System.out.println("请输入管理员学工号:");
+        id = sc.nextLine();
+        System.out.println("请输入管理员姓名:");
+        name = sc.nextLine();
+        System.out.println("请输入管理员密码:");
+        password = sc.nextLine();
+        System.out.println("请输入管理员邮箱:");
+        email = sc.nextLine();
+        time = new Date().toString();
+        Admin admin = new Admin(id, name, password, email, time);
+        if (DaoSet.adminDao.addAdmin(admin)) {
+            System.out.println("注册成功!");
+        } else {
+            System.out.println("出现未知错误，请联系技术人员");
+        }
+
     }
 
 }

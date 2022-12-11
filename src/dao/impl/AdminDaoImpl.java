@@ -18,7 +18,7 @@ public class AdminDaoImpl implements AdminDao {
     private static ResultSet rs = null;
 
     private static final String MATCH_ADMIN_SQL = "select * from admin where id=? and password=?";
-    private static final String ADD_ADMIN_SQL = "insert into admin values(?,?,?,?)";
+    private static final String ADD_ADMIN_SQL = "insert into admin values(?,?,?,?,?)";
     private static final String DELETE_ADMIN_SQL = "delete from admin where id=?";
     private static final String EDIT_ADMIN_SQL = "update admin set username=?,password=?,email=?where id=?";
     private static final String LIST_ADMIN_SQL = "select * from admin";
@@ -39,6 +39,7 @@ public class AdminDaoImpl implements AdminDao {
             ps.setString(2, admin.getUserName());
             ps.setString(3, admin.getPassword());
             ps.setString(4, admin.getEmail());
+            ps.setString(5, admin.getTime());
             int result = ps.executeUpdate();
             DBUtil.close(null, ps, cn);
         } catch (SQLException e) {
