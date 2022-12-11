@@ -1,5 +1,6 @@
 package message;
 
+
 import java.util.*;
 
 /**
@@ -9,6 +10,9 @@ import java.util.*;
  * &#064;date  : 2022/12/8 20:57
  */
 public class AdminUserEditMsg extends BaseMsg{
+    public static final int ADD = 1;
+    public static final int DELETE = 2;
+    public static final int CHANGE = 3;
     private String userName;
     private String id;
     private String password;

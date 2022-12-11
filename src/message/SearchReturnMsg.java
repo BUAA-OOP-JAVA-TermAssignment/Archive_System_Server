@@ -1,7 +1,6 @@
 package message;
 
-import com.mysql.cj.x.protobuf.MysqlxNotice;
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -17,7 +16,7 @@ public class SearchReturnMsg extends BaseMsg {
 
     private ArrayList<Book> bookArrayList;
 
-    class Book {
+    class Book implements Serializable {
         private String Id;
         private String name;
         private String author;

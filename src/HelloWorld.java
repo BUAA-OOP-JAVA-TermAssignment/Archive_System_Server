@@ -12,11 +12,11 @@ import java.util.Date;
 public class HelloWorld {
 
     public static void main(String[] args) throws IOException {
-        luceneInit();
+        serverInit();
 
     }
 
-    void serverInit() {
+    static void serverInit() {
         ServerCore.getMyServer().runServer();
     }
 
@@ -25,7 +25,7 @@ public class HelloWorld {
         LuceneCore.getInstance().search("电路", 0, 5);
     }
 
-    void addFile() {
+    static void addFile() {
         //导入一些本地文件测试
         for (int i = 1; i < 6; i++) {
             String id = "EX-000" + i;
