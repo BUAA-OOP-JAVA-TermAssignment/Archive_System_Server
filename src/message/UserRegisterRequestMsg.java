@@ -7,7 +7,7 @@ package message;
  * @author : AkashiSensei
  * &#064;date  : 2022/12/8 20:20
  */
-public class UserRegisterRequestMsg extends BaseMsg{
+public class UserRegisterRequestMsg extends BaseMsg {
     private final String name;
     private final String id;
     private final String password;
@@ -24,10 +24,11 @@ public class UserRegisterRequestMsg extends BaseMsg{
 
     /**
      * 创建RegisterRequestMsg的实例
-     * @param name 用户姓名
-     * @param id 学工号
+     *
+     * @param name     用户姓名
+     * @param id       学工号
      * @param password 密码
-     * @param email 电子邮箱
+     * @param email    电子邮箱
      * @return 返回新建的实例
      */
     public static UserRegisterRequestMsg createRegisterRequestMsg(String name, String id, String password, String email) {

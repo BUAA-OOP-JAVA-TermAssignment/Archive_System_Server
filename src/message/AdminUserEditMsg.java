@@ -1,5 +1,6 @@
 package message;
 
+
 import java.util.*;
 
 /**
@@ -8,13 +9,10 @@ import java.util.*;
  * @author : AkashiSensei
  * &#064;date  : 2022/12/8 20:57
  */
-public class AdminUserEditMsg extends BaseMsg{
-
-    public static final int LOAD = 0;
+public class AdminUserEditMsg extends BaseMsg {
     public static final int ADD = 1;
     public static final int DELETE = 2;
     public static final int CHANGE = 3;
-
     private String userName;
     private String id;
     private String password;
@@ -24,8 +22,8 @@ public class AdminUserEditMsg extends BaseMsg{
     private int opCode;
 
 
-    private AdminUserEditMsg(int opCode, String userName,String id, String email, String password, int downloadCnt, String date) {
-        super(ADMIN_USER_EDIT);
+    private AdminUserEditMsg(int opCode, String userName, String id, String email, String password, int downloadCnt, String date) {
+        super(-ADMIN_USER_EDIT);
         this.opCode = opCode;
         this.userName = userName;
         this.id = id;
@@ -38,14 +36,15 @@ public class AdminUserEditMsg extends BaseMsg{
 
     /**
      * 创建LoginReturnMsg实例
+     *
      * @param downloadCnt 用户总计下载量，这个值由客户端统计，服务器只需要记录这个值
-     * @param email 用户邮箱
+     * @param email       用户邮箱
      */
-    public static AdminUserEditMsg createAdminUserEditMsg(int opCode, String userName,String id, String email, String password, int downloadCnt, String date) {
-        return new AdminUserEditMsg(opCode,userName,id,email,password,downloadCnt, date);
+    public static AdminUserEditMsg createAdminUserEditMsg(int opCode, String userName, String id, String email, String password, int downloadCnt, String date) {
+        return new AdminUserEditMsg(opCode, userName, id, email, password, downloadCnt, date);
     }
 
-    public int getOpCode(){
+    public int getOpCode() {
         return opCode;
     }
 
