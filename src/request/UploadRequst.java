@@ -6,6 +6,9 @@ import server.thread.ClientThread;
 
 import java.io.File;
 
+/**
+ * 上传要求
+ */
 public class UploadRequst extends BaseRequst{
     UploadRequestMsg um;
 

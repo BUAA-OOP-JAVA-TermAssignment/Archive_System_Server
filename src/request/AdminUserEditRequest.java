@@ -4,6 +4,10 @@ import controller.AdminUserEditController;
 import message.AdminUserEditMsg;
 import server.thread.ClientThread;
 
+/**
+ * 客户端请求管理员修改数据
+ * @author Hathoric
+ */
 public class AdminUserEditRequest extends BaseRequst {
     AdminUserEditMsg au;
 

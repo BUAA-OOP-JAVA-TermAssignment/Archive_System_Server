@@ -5,6 +5,9 @@ import message.BaseMsg;
 import message.DownloadRequestMsg;
 import server.thread.ClientThread;
 
+/**
+ * ÏÂÔØÒªÇó
+ */
 public class DownloadRequest extends BaseRequst {
 
     DownloadRequestMsg drm;

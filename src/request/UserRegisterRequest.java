@@ -7,6 +7,10 @@ import server.thread.ClientThread;
 
 import java.util.Date;
 
+/**
+ * ×¢²áÒªÇó
+ * @author Hathoric
+ */
 public class UserRegisterRequest extends BaseRequst{
     UserRegisterRequestMsg um;
 

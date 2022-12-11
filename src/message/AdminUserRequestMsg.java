@@ -3,7 +3,10 @@ package message;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-
+/**
+ * 服务器端返回给客户端的用户列表报文
+ * @author Hathoric
+ */
 public class AdminUserRequestMsg extends BaseMsg {
 
     private ArrayList<User> userArrayList;
@@ -17,6 +20,15 @@ public class AdminUserRequestMsg extends BaseMsg {
         private String date;
         private String email;
 
+        /**
+         * 内部类的构造方法
+         * @param userName 姓名
+         * @param id 学工号
+         * @param password 密码
+         * @param downloadCnt 下载量
+         * @param date 最近登录
+         * @param email 邮箱
+         */
         User(String userName, String id, String password, int downloadCnt, String date, String email) {
             this.userName = userName;
             this.id = id;
@@ -27,11 +39,21 @@ public class AdminUserRequestMsg extends BaseMsg {
         }
     }
 
+
     public AdminUserRequestMsg() {
         super(-ADMIN_USER_REQUEST);
         this.userArrayList = new ArrayList<>();
     }
 
+    /**
+     * 向内部userlist中添加新成员
+     * @param id 学工号
+     * @param userName 姓名
+     * @param password 密码
+     * @param email 邮箱
+     * @param downloadCnt 下载了
+     * @param date 最近登录
+     */
     public void add(String id, String userName, String password, String email, int downloadCnt, String date) {
         userArrayList.add(new User(userName, id, password, downloadCnt, date, email));
     }

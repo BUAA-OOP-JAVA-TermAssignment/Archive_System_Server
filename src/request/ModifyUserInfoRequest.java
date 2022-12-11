@@ -4,6 +4,10 @@ import controller.ModifyUserInfoController;
 import message.ModifyUserInfo;
 import server.thread.ClientThread;
 
+/**
+ * 用户个人修改信息要求
+ * @author Hathoric
+ */
 public class ModifyUserInfoRequest extends BaseRequst {
     ModifyUserInfo mi;
 
