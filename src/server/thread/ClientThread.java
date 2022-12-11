@@ -122,6 +122,15 @@ public class ClientThread implements Runnable {
                 System.out.println("receive msg SEARCH_ARCHIVE");
                 return new SearchRequest((SearchRequestMsg) msg, this);
 
+            case BaseMsg.ADMIN_USER_EDIT:
+                System.out.println("receive msg ADMIN_USER_EDIT");
+                return new AdminUserEditRequest((AdminUserEditMsg) msg, this);
+
+            case BaseMsg.ADMIN_USER_SEND:
+                System.out.println("receive msg ADMIN_USER_SEND");
+                return new UserListRequest(this);
+
+
             default:
                 return null;
         }
