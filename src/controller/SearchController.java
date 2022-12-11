@@ -37,10 +37,18 @@ public class SearchController {
      * @param max
      */
     public void search(SearchRequest sr, String keyWords, int offset, int max) {
+        if (keyWords == null) {
+            System.out.println("Illegal Keywords!");
+            sr.getThread().sendMsgBack(new BaseMsg(BaseMsg.UNDEFINED_FAILED));
+        }
+        System.out.println("Receive search request");
         SearchReturnMsg srm = LuceneCore.getInstance().search(keyWords, offset, max);
         if (srm == null) {
+            System.out.println("Undefined search error occurred!");
             sr.getThread().sendMsgBack(new BaseMsg(BaseMsg.UNDEFINED_FAILED));
         } else {
+            System.out.println("Search done");
+            System.out.println("------------------------------");
             sr.getThread().sendMsgBack(srm);
         }
     }

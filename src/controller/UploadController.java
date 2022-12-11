@@ -62,6 +62,7 @@ public class UploadController {
             return false;
         }
         doc.setContent(text);
+        System.out.println("Adding document...");
         DaoSet.docDao.add(doc);
         return true;
     }

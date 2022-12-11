@@ -129,6 +129,11 @@ public class LuceneCore {
      */
     public SearchReturnMsg search(String keyWord, int offset, int max) {
         DirectoryReader directoryReader = null;
+        boolean isValid = true;
+        if ("".equals(keyWord)) {
+            keyWord = "Hathoric";
+            isValid = false;
+        }
         try {
             // 1、创建Directory
             Directory directory = FSDirectory.open(FileSystems.getDefault().getPath(PATH_INDEX));
@@ -162,11 +167,16 @@ public class LuceneCore {
                 if (i <= offset) {
                     continue;
                 }
-                System.out.println(scoreDoc.score);
                 // 7、根据searcher和ScoreDoc对象获取具体的Document对象
                 Document document = indexSearcher.doc(scoreDoc.doc);
+                System.out.println(document.get("id"));
                 String content = document.get("content");
-                String matchSegment = highlighter.getBestFragment(analyzer, "content", content);
+                String matchSegment;
+                if (!isValid) {
+                    matchSegment = "根据您的兴趣推荐";
+                } else {
+                    matchSegment = highlighter.getBestFragment(analyzer, "content", content);
+                }
                 //打包发给前台
                 srm.addDoc(document.get("id"), document.get("name"), document.get("author"), matchSegment, document.get("downloadCnt"), scoreDoc.score);
             }
