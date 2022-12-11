@@ -20,6 +20,7 @@ public class UserDaoImpl implements UserDao {
     private static final String EDIT_USER_SQL = "update user set password=?,email=?,downloadCnt=? where id=?";
     private static final String DELETE_USER_SQL = "delete from user where id=?";
     private static final String LIST_USER_SQL = "select * from user";
+    private static final String ADMIN_CHANGE_SQL = "update user set userName=?,password=?,email=?,time=?,downloadCnt=? where id=?";
 
     /**
      * 添加用户
@@ -160,6 +161,37 @@ public class UserDaoImpl implements UserDao {
             if (!deleteUser(id)) {
                 return false;
             }
+        }
+        return true;
+    }
+
+    /**
+     * 管理员修改用户资料
+     *
+     * @param id 学号
+     * @param userName 姓名
+     * @param password 密码
+     * @param email 邮箱
+     * @param time 登录时间
+     * @param downloadCnt 下载次数
+     * @return true 成功 false 失败
+     */
+    public boolean adminChangeUser(String id, String userName, String password, String email, String time, int downloadCnt){
+        cn = DBUtil.getConnection();
+        try {
+            assert cn != null;
+            ps = cn.prepareStatement(ADMIN_CHANGE_SQL);
+            ps.setString(1, userName);
+            ps.setString(2, password);
+            ps.setString(3, email);
+            ps.setString(4, time);
+            ps.setInt(5, downloadCnt);
+            ps.setString(6, id);
+            int result = ps.executeUpdate();
+            DBUtil.close(null, ps, cn);
+        }catch (SQLException e){
+            e.printStackTrace();
+            return false;
         }
         return true;
     }

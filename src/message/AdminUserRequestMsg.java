@@ -4,21 +4,8 @@ import java.util.ArrayList;
 
 
 public class AdminUserRequestMsg extends BaseMsg{
-    public static final int REQUEST_INFO = 0;
 
-    private ArrayList<User> userArrayList = new ArrayList<>(){{
-        add(new User("ºº×Ö", "12345678", "wefwe", 3, "123//33", "cdcdcd@qwe"));
-        add(new User("ºº×Ö", "12345678", "wefwe", 3, "123//33", "cdcdcd@qwe"));
-        add(new User("ºº×Ö", "12345678", "wefwe", 3, "123//33", "cdcdcd@qwe"));
-        add(new User("ºº×Ö", "12345678", "wefwe", 3, "123//33", "cdcdcd@qwe"));
-        add(new User("ºº×Ö", "12345678", "wefwe", 3, "123//33", "cdcdcd@qwe"));
-        add(new User("ºº×Ö", "12345678", "wefwe", 3, "123//33", "cdcdcd@qwe"));
-        add(new User("ºº×Ö", "12345678", "wefwe", 3, "123//33", "cdcdcd@qwe"));
-        add(new User("ºº×Ö", "12345678", "wefwe", 3, "123//33", "cdcdcd@qwe"));
-        add(new User("ºº×Ö", "12345678", "wefwe", 3, "123//33", "cdcdcd@qwe"));
-        add(new User("ºº×Ö", "12345678", "wefwe", 3, "123//33", "cdcdcd@qwe"));
-        add(new User("ºº×Ö", "12345678", "wefwe", 3, "123//33", "cdcdcd@qwe"));
-    }};
+    private ArrayList<User> userArrayList;
 
 
     public class User {
@@ -42,19 +29,16 @@ public class AdminUserRequestMsg extends BaseMsg{
         }
     }
 
-    private AdminUserRequestMsg(ArrayList<User> userArrayList) {
+    public AdminUserRequestMsg() {
         super(ADMIN_USER_REQUEST);
-        this.userArrayList = userArrayList;
+        this.userArrayList = new ArrayList<>();
     }
 
-    public static AdminUserRequestMsg createAdminUserRequestMsg(ArrayList<User> userArrayList){
-        return new AdminUserRequestMsg(userArrayList);
+    public void add(String id, String userName, String password, String email, int downloadCnt, String date){
+        userArrayList.add(new User(userName,id,password,downloadCnt,date,email));
     }
 
-
-
-
-    public  int getUserNum(){
+    public int getUserNum(){
         if(userArrayList == null){
             return 0;
         }

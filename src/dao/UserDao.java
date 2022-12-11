@@ -52,4 +52,17 @@ public interface UserDao {
      * @return true 成功 false 失败
      */
     public boolean deleteUsers(List<String> userIdList);
+
+    /**
+     * 管理员修改用户资料
+     *
+     * @param id 学号
+     * @param userName 姓名
+     * @param password 密码
+     * @param email 邮箱
+     * @param time 登录时间
+     * @param downloadCnt 下载次数
+     * @return true 成功 false 失败
+     */
+    public boolean adminChangeUser(String id, String userName, String password, String email, String time, int downloadCnt);
 }

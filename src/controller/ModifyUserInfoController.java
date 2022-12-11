@@ -35,7 +35,7 @@ public class ModifyUserInfoController {
         int downloadCnt = mm.getDownloadCnt();
         if (id != null && password != null && email != null){
             System.out.println("userModifyUserInfo");
-            boolean isModify = ModifyUserInfoService.hasModify(id, password, email, downloadCnt);
+            boolean isModify = modifyUserInfoService.hasModify(id, password, email, downloadCnt);
             if (isModify){
                 System.out.println("Modify Success");
                 mm.getThread().sendMsgBack(new BaseMsg(BaseMsg.SUCCESS));
