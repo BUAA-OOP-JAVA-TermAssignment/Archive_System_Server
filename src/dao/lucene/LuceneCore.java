@@ -155,9 +155,9 @@ public class LuceneCore {
             // 6、根据TopDocs获取ScoreDoc对象
             ScoreDoc[] scoreDocs = topDocs.scoreDocs;
             System.out.println("共找到匹配文档数：" + scoreDocs.length);
-
+            SimpleHTMLFormatter simpleHtmlFormatter = new SimpleHTMLFormatter("**", "**");
             QueryScorer scorer = new QueryScorer(multiFieldQuery, "content");
-            Highlighter highlighter = new Highlighter(scorer);
+            Highlighter highlighter = new Highlighter(simpleHtmlFormatter, scorer);
             highlighter.setTextFragmenter(new SimpleSpanFragmenter(scorer));
             SearchReturnMsg srm = new SearchReturnMsg();
             int i = 0;
