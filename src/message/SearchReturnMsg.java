@@ -68,4 +68,8 @@ public class SearchReturnMsg extends BaseMsg {
     public int getBookDownloadCnt(int inx) {
         return bookArrayList.get(inx).downloadCnt;
     }
+
+    public float gteBookMatchedScore(int inx) {
+        return bookArrayList.get(inx).score;
+    }
 }
