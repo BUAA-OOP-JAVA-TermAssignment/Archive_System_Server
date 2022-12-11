@@ -38,12 +38,11 @@ public class ClientThread implements Runnable {
      */
     public void sendMsgBack(BaseMsg msg) {
         try {
-            System.out.println("返回报文！");
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             oos.writeObject(msg);
-            System.out.println("成功返回报文！");
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("Send back message failed!");
         }
     }
 
@@ -51,7 +50,7 @@ public class ClientThread implements Runnable {
      * 将文件下载给该客户端
      *
      * @param filePath 文件的地址
-     * @return 结果
+     * @return true 成功 false 失败
      */
     public boolean downloadFile(String filePath) {
         try {
@@ -64,9 +63,9 @@ public class ClientThread implements Runnable {
             }
             bis.close();
             outputStream.close();
-
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("Download in thread failed!");
             return false;
         }
         return true;
@@ -90,6 +89,7 @@ public class ClientThread implements Runnable {
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
+            System.out.println(this.socket + "lost connection!");
         }
     }
 
@@ -129,7 +129,6 @@ public class ClientThread implements Runnable {
             case BaseMsg.ADMIN_USER_SEND:
                 System.out.println("receive msg ADMIN_USER_SEND");
                 return new UserListRequest(this);
-
 
             default:
                 return null;

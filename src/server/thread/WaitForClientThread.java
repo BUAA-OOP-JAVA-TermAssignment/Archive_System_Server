@@ -27,7 +27,7 @@ public class WaitForClientThread extends Thread {
                 ServerCore.POOL.execute(new ClientThread(socket));
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("WaitForClientThread stop working!");
         }
     }
 }

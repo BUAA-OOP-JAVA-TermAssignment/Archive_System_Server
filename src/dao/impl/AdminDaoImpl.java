@@ -27,7 +27,7 @@ public class AdminDaoImpl implements AdminDao {
      * 添加管理员
      *
      * @param admin 管理员信息
-     * @return
+     * @return true 成功 false 失败
      */
     @Override
     public boolean addAdmin(Admin admin) {
@@ -43,6 +43,7 @@ public class AdminDaoImpl implements AdminDao {
             DBUtil.close(null, ps, cn);
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Add admin failed!");
             return false;
         }
         return true;
@@ -53,7 +54,7 @@ public class AdminDaoImpl implements AdminDao {
      * 编辑管理员信息
      *
      * @param admin 管理员信息
-     * @return
+     * @return true 成功 false 失败
      */
     @Override
     public boolean editAdmin(Admin admin) {
@@ -69,6 +70,7 @@ public class AdminDaoImpl implements AdminDao {
             DBUtil.close(null, ps, cn);
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Edit admin failed!");
             return false;
         }
         return true;
@@ -79,7 +81,7 @@ public class AdminDaoImpl implements AdminDao {
      * 删除管理员
      *
      * @param id 管理员id
-     * @return
+     * @return true 成功 false 失败
      */
     public boolean deleteAdmin(int id) {
         cn = DBUtil.getConnection();
@@ -91,6 +93,7 @@ public class AdminDaoImpl implements AdminDao {
             DBUtil.close(null, ps, cn);
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Delete admin failed!");
             return false;
         }
         return true;
@@ -100,7 +103,7 @@ public class AdminDaoImpl implements AdminDao {
     /**
      * 获取所有管理员
      *
-     * @return
+     * @return 成功返回管理员列表，失败返回null
      */
     @Override
     public List<Admin> getAllAdmin() {
@@ -116,6 +119,7 @@ public class AdminDaoImpl implements AdminDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Get all admin failed!");
             return null;
         }
         return list;
@@ -126,7 +130,7 @@ public class AdminDaoImpl implements AdminDao {
      *
      * @param id       账号
      * @param password 密码
-     * @return
+     * @return 返回匹配的管理员，失败返回null
      */
     @Override
     public Admin getMatchAdmin(String id, String password) {
@@ -142,6 +146,8 @@ public class AdminDaoImpl implements AdminDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Get matched admin failed");
+            return null;
         }
         return null;
     }
@@ -150,12 +156,13 @@ public class AdminDaoImpl implements AdminDao {
      * 批量删除管理员
      *
      * @param adminIdList 批量删除管理员
-     * @return
+     * @return true 成功 false 失败
      */
     @Override
     public boolean deleteAdmins(List<Integer> adminIdList) {
         for (Integer id : adminIdList) {
             if (!deleteAdmin(id)) {
+                System.out.println("Delete admins failed");
                 return false;
             }
         }

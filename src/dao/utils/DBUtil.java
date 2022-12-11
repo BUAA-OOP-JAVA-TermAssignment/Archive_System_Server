@@ -8,7 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
-// 针对数据库的连接作用
+/**
+ * 连接数据库工具
+ */
 public class DBUtil {
 
     private static DataSource ds;
@@ -24,8 +26,8 @@ public class DBUtil {
             //获得连接池对象
             ds = DruidDataSourceFactory.createDataSource(pro);
         }catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
+            System.out.println("SQL Initialize Failed!");
         }
     }
 
@@ -38,14 +40,14 @@ public class DBUtil {
         try {
             return  ds.getConnection();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
+            System.out.println("Get SQL connection failed!");
         }
         return null;
     }
 
     /**
-     * 关闭连接池
+     * 关闭连接
      * @param rs
      * @param ps
      * @param cn
@@ -54,25 +56,11 @@ public class DBUtil {
         if(rs!=null){
             try {
                 rs.close();
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-        if(ps!=null){
-            try {
                 ps.close();
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-        if(cn!=null){
-            try {
                 cn.close();  //  此时的关闭，是归还给连接池对象
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
+                System.out.println("Close SQL connection failed!");
             }
         }
     }

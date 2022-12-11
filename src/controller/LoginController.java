@@ -57,10 +57,10 @@ public class LoginController {
         User user = new User(um.getId(), um.getName(), um.getPassword(), um.getEmail(), 0, new Date().toString());
         boolean isReg = loginService.userRegister(user);
         if (isReg) {
-            System.out.println("注册成功");
+            System.out.println("Register Success");
             um.getThread().sendMsgBack(new BaseMsg(BaseMsg.SUCCESS));
         } else {
-            System.out.println("注册失败");
+            System.out.println("Register Failed");
             um.getThread().sendMsgBack(new BaseMsg(BaseMsg.UNDEFINED_FAILED));
         }
     }
@@ -71,7 +71,7 @@ public class LoginController {
      * @param um 来自客户端的登入消息
      */
     public void userLoginCheck(UserLoginRequst um) {
-        //TODO:这里返回值需要修改！
+        System.out.println("Receive login request");
         int userType = um.getUserType();
         String id = um.getId();
         String password = um.getPassword();
@@ -79,18 +79,19 @@ public class LoginController {
             if (userType == 1) {
                 User user = loginService.hasMatchUser(id, password);
                 if (user != null) {
-                    System.out.println("成功查找到此人！");
+                    System.out.println("Match user success");
                     um.getThread().sendMsgBack(LoginReturnMsg.createLoginReturnMsg(user.getUserName(), user.getId(), user.getEmail(), user.getPassword(), user.getDownloadCnt(), user.getTime()));
                 } else {
-                    System.out.println("没有匹配！");
+                    System.out.println("No matched user!");
                     um.getThread().sendMsgBack(new BaseMsg(BaseMsg.UNDEFINED_FAILED));
                 }
             } else if (userType == 2) {
                 Admin admin = loginService.hasMatchAdmin(id, password);
-                System.out.println("成功查找到此人！");
                 if (admin != null) {
+                    System.out.println("Match admin success");
                     um.getThread().sendMsgBack(LoginReturnMsg.createLoginReturnMsg(admin.getUserName(), admin.getId(), admin.getEmail(), admin.getPassword(), 0, admin.getTime()));
                 } else {
+                    System.out.println("No matched admin!");
                     um.getThread().sendMsgBack(new BaseMsg(BaseMsg.UNDEFINED_FAILED));
                 }
             } else {
@@ -99,7 +100,6 @@ public class LoginController {
         } else {
             um.getThread().sendMsgBack(new BaseMsg(BaseMsg.UNDEFINED_FAILED));
         }
-
     }
 
 }

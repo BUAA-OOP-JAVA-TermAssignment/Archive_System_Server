@@ -42,7 +42,6 @@ import java.sql.SQLException;
  */
 public class LuceneCore {
 
-
     private static LuceneCore luceneCore;
 
     /**
@@ -69,7 +68,7 @@ public class LuceneCore {
      *
      * @throws IOException
      */
-    public void buildIndex() throws IOException {
+    public void buildIndex() throws SQLException, IOException {
         //欲输入的数据路径和索引表的存放路径
         Directory dir = FSDirectory.open(new File(LuceneCore.PATH_INDEX).toPath());
 
@@ -101,33 +100,32 @@ public class LuceneCore {
         Connection cn = DBUtil.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
-        try {
-            assert cn != null;
-            ps = cn.prepareStatement("select * from document");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                Document doc = new Document();
-                doc.add(new Field("id", rs.getString("id"), fieldTypeMetadata));
-                doc.add(new Field("name", rs.getString("name"), fieldTypeText));
-                doc.add(new Field("author", rs.getString("author"), fieldTypeText));
-                doc.add(new Field("content", rs.getString("content"), fieldTypeText));
-                doc.add(new Field("downloadCnt", String.valueOf(rs.getInt("downloadCnt")), fieldTypeText));
-                ixwriter.addDocument(doc);
-            }
-            cn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return;
-        }
 
+        assert cn != null;
+        ps = cn.prepareStatement("select * from document");
+        rs = ps.executeQuery();
+        while (rs.next()) {
+            Document doc = new Document();
+            doc.add(new Field("id", rs.getString("id"), fieldTypeMetadata));
+            doc.add(new Field("name", rs.getString("name"), fieldTypeText));
+            doc.add(new Field("author", rs.getString("author"), fieldTypeText));
+            doc.add(new Field("content", rs.getString("content"), fieldTypeText));
+            doc.add(new Field("downloadCnt", String.valueOf(rs.getInt("downloadCnt")), fieldTypeText));
+            ixwriter.addDocument(doc);
+        }
+        cn.close();
         ixwriter.close();
         dir.close();
+        return;
     }
 
     /**
      * 通过关键词搜索
      *
-     * @param keyWord
+     * @param keyWord 关键词
+     * @param offset  偏移量
+     * @param max     搜索篇数
+     * @return 成功返回搜索回执MSG, 失败返回null
      */
     public SearchReturnMsg search(String keyWord, int offset, int max) {
         DirectoryReader directoryReader = null;
@@ -175,6 +173,7 @@ public class LuceneCore {
             return srm;
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("Lucene search failed");
         } finally {
             try {
                 if (directoryReader != null) {

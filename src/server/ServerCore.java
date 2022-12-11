@@ -49,17 +49,15 @@ public class ServerCore {
      *
      * @throws IOException
      */
-    public boolean runServer() {
-        try {
-            server = new ServerSocket(8888);
-            System.out.println("服务器启动成功");
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+    public void runServer() throws IOException {
+        server = new ServerSocket(8888);
+        System.out.println("Server Start Success");
         POOL.execute(new WaitForClientThread(server));
-        return false;
     }
 
+    public void closeServer() throws IOException {
+        server.close();
+        POOL.shutdown();
+    }
 
 }

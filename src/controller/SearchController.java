@@ -1,6 +1,7 @@
 package controller;
 
 import dao.lucene.LuceneCore;
+import message.BaseMsg;
 import message.SearchReturnMsg;
 import request.SearchRequest;
 
@@ -37,7 +38,11 @@ public class SearchController {
      */
     public void search(SearchRequest sr, String keyWords, int offset, int max) {
         SearchReturnMsg srm = LuceneCore.getInstance().search(keyWords, offset, max);
-        sr.getThread().sendMsgBack(srm);
+        if (srm == null) {
+            sr.getThread().sendMsgBack(new BaseMsg(BaseMsg.UNDEFINED_FAILED));
+        } else {
+            sr.getThread().sendMsgBack(srm);
+        }
     }
 
 

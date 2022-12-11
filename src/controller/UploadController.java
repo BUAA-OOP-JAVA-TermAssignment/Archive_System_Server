@@ -3,17 +3,9 @@ package controller;
 import dao.DaoSet;
 import dao.domain.Document;
 import dao.utils.FileUtils;
-import message.DownloadRequestMsg;
-import message.UploadReturnMsg;
-import org.apache.pdfbox.pdmodel.interactive.form.FieldUtils;
 import request.DownloadRequest;
-import request.UploadRequst;
-import service.UploadService;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.Socket;
 
 /**
  * @author pcpas
@@ -42,10 +34,13 @@ public class UploadController {
      * 下载pdf文件至客户端
      */
     public void download(DownloadRequest dr) {
-        System.out.println("hello!");
+        System.out.println("Receive download request");
         String filePath = FILE_SAVE_PATH + "\\" + dr.getDocId() + ".pdf";
-        dr.getThread().downloadFile(filePath);
-        System.out.println("下载成功！");
+        if (!dr.getThread().downloadFile(filePath)) {
+            System.out.println("Download failed!");
+        } else {
+            System.out.println("Download successfully");
+        }
     }
 
     //TODO:上传完文件之后使用此方法
@@ -62,7 +57,7 @@ public class UploadController {
         try {
             text = FileUtils.readPdf(pdfPath);
         } catch (IOException e) {
-            System.out.println("读取PDF文件失败！");
+            System.out.println("Read local PDF files failed!");
             e.printStackTrace();
             return false;
         }

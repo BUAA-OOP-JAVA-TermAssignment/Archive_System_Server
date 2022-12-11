@@ -22,13 +22,13 @@ public class DocDaoImpl implements DocDao {
     /**
      * 添加文档
      *
-     * @param bean
-     * @return
+     * @param bean 文档对象
+     * @return true 成功 false 失败
      */
     @Override
     public boolean add(Document bean) {
         if (bean.getContent() == null) {
-            System.out.println("尝试非法添加空文档");
+            System.out.println("Try to illegally add a document null");
             return false;
         }
 
@@ -44,6 +44,7 @@ public class DocDaoImpl implements DocDao {
             DBUtil.close(null, ps, cn);
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Add document failed!");
             return false;
         }
         return true;
@@ -53,8 +54,8 @@ public class DocDaoImpl implements DocDao {
      * 更新文档信息
      * 注意：不会修改文档的正文
      *
-     * @param bean
-     * @return
+     * @param bean 文档对象
+     * @return true 成功 false 失败
      */
     @Override
     public boolean update(Document bean) {
@@ -69,6 +70,7 @@ public class DocDaoImpl implements DocDao {
             DBUtil.close(null, ps, cn);
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Update document failed!");
             return false;
         }
         return true;
@@ -78,8 +80,8 @@ public class DocDaoImpl implements DocDao {
     /**
      * 删除文档
      *
-     * @param id
-     * @return
+     * @param id 文档ID
+     * @return true 成功 false 失败
      */
     @Override
     public boolean delete(String id) {
@@ -92,6 +94,7 @@ public class DocDaoImpl implements DocDao {
             DBUtil.close(null, ps, cn);
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("Delete file failed!");
             return false;
         }
         return true;
@@ -100,8 +103,8 @@ public class DocDaoImpl implements DocDao {
     /**
      * 通过Id寻找特定的文档
      *
-     * @param idList
-     * @return
+     * @param idList 文档ID的列表
+     * @return 成功返回文档列表，失败返回null
      */
     @Override
     public List<Document> findById(List<String> idList) {
@@ -113,8 +116,8 @@ public class DocDaoImpl implements DocDao {
     /**
      * 通过Id寻找特定的文档
      *
-     * @param id
-     * @return
+     * @param id 文档ID
+     * @return 成功返回文档，失败返回null
      */
     @Override
     public Document findById(String id) {
@@ -124,8 +127,8 @@ public class DocDaoImpl implements DocDao {
     /**
      * 删除所有的文档
      *
-     * @param idList
-     * @return
+     * @param idList 文档ID列表
+     * @return true 成功 false 失败
      */
     @Override
     public boolean deleteDocuments(List<String> idList) {
