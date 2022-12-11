@@ -83,6 +83,7 @@ public class ClientThread implements Runnable {
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                 BaseMsg msg = (BaseMsg) ois.readObject();
                 System.out.println("成功收到报文！");
+                Thread.sleep(1000);
                 BaseRequst request = msgToRequst(msg);
                 assert request != null;
                 request.execute();
@@ -90,6 +91,9 @@ public class ClientThread implements Runnable {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             System.out.println(this.socket + "lost connection!");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            System.out.println("模拟网络延迟失败");
         }
     }
 

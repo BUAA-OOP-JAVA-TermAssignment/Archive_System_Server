@@ -21,6 +21,8 @@ public class Starter {
             System.out.println("Server initialize failed!");
             return;
         }
+
+
         //初始化Lucene
         try {
             LuceneCore.getInstance().buildIndex();
@@ -49,7 +51,7 @@ public class Starter {
     static void addFile1() {
         //导入一些本地文件测试
         for (int i = 1; i <= 9; i++) {
-            String id = "EX-000" + i;
+            String id = "EX_000" + i;
             String name = "SPhomework" + i;
             String author = "pcpas";
             String path = "D:\\Archive_System\\origin_pdfs\\EX_000" + i + ".pdf";
@@ -60,7 +62,7 @@ public class Starter {
 
     static void addFile2() {
         for (int i = 10; i <= 16; i++) {
-            String id = "EX-00" + i;
+            String id = "EX_00" + i;
             String name = "SPhomework" + i;
             String author = "pcpas";
             String path = "D:\\Archive_System\\origin_pdfs\\EX_00" + i + ".pdf";

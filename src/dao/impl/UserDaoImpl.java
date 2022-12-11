@@ -15,7 +15,7 @@ public class UserDaoImpl implements UserDao {
     private static Connection cn = null;
     private static ResultSet rs = null;
 
-    private static final String MATCH_USER_SQL = "select id,password from user where username=? and password=?";
+    private static final String MATCH_USER_SQL = "select * from user where id=? and password=?";
     private static final String ADD_USER_SQL = "insert into user values(?,?,?,?,?,?)";
     private static final String EDIT_USER_SQL = "update user set password=?,email=?,downloadCnt=? where id=?";
     private static final String DELETE_USER_SQL = "delete from user where id=?";

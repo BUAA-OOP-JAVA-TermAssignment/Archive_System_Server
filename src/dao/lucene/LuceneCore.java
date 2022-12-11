@@ -131,7 +131,7 @@ public class LuceneCore {
         DirectoryReader directoryReader = null;
         boolean isValid = true;
         if ("".equals(keyWord)) {
-            keyWord = "Hathoric";
+            keyWord = "pcpas";
             isValid = false;
         }
         try {
@@ -157,8 +157,7 @@ public class LuceneCore {
             System.out.println("共找到匹配文档数：" + scoreDocs.length);
 
             QueryScorer scorer = new QueryScorer(multiFieldQuery, "content");
-            SimpleHTMLFormatter htmlFormatter = new SimpleHTMLFormatter("<span style=\"backgroud:red\">", "</span>");
-            Highlighter highlighter = new Highlighter(htmlFormatter, scorer);
+            Highlighter highlighter = new Highlighter(scorer);
             highlighter.setTextFragmenter(new SimpleSpanFragmenter(scorer));
             SearchReturnMsg srm = new SearchReturnMsg();
             int i = 0;
@@ -171,11 +170,15 @@ public class LuceneCore {
                 Document document = indexSearcher.doc(scoreDoc.doc);
                 System.out.println(document.get("id"));
                 String content = document.get("content");
-                String matchSegment;
+                String matchSegment = "";
                 if (!isValid) {
-                    matchSegment = "根据您的兴趣推荐";
+                    matchSegment = "猜你喜欢";
                 } else {
-                    matchSegment = highlighter.getBestFragment(analyzer, "content", content);
+                    String[] segs = highlighter.getBestFragments(analyzer, "content", content, 5);
+                    for (String s : segs) {
+                        matchSegment += s;
+                        matchSegment += "\n";
+                    }
                 }
                 //打包发给前台
                 srm.addDoc(document.get("id"), document.get("name"), document.get("author"), matchSegment, document.get("downloadCnt"), scoreDoc.score);
