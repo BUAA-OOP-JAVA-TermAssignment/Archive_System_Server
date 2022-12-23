@@ -41,7 +41,7 @@ public class ModifyUserInfoController {
         String email = mm.getEmail();
         int downloadCnt = mm.getDownloadCnt();
         if (id != null && password != null && email != null) {
-            System.out.println("userModifyUserInfo");
+            System.out.println("User try to modify info");
             boolean isModify = modifyUserInfoService.hasModify(id, password, email, downloadCnt);
             if (isModify) {
                 System.out.println("Modify Success");

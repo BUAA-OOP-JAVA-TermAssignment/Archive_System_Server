@@ -23,7 +23,7 @@ public class AdminUserEditMsg extends BaseMsg {
 
 
     private AdminUserEditMsg(int opCode, String userName, String id, String email, String password, int downloadCnt, String date) {
-        super(-ADMIN_USER_EDIT);
+        super(ADMIN_USER_EDIT);
         this.opCode = opCode;
         this.userName = userName;
         this.id = id;

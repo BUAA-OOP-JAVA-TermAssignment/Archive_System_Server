@@ -13,7 +13,6 @@ public class ModifyUserInfoService {
      * @return true ³É¹¦ false Ê§°Ü
      */
     public boolean hasModify(String id, String password, String email, int downloadCnt) {
-        System.out.println("hasModify");
         return DaoSet.userDao.editUser(id, password, email, downloadCnt);
     }
 }

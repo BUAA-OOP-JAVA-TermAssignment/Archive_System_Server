@@ -42,6 +42,9 @@ public class Starter {
                 case "ADD ADMIN":
                     addAdmin(scanner);
                     break;
+                case "ADD DOCUMENT":
+                    addDocument(scanner);
+                    break;
                 case "QUIT":
                     try {
                         ServerCore.getMyServer().closeServer();
@@ -55,6 +58,8 @@ public class Starter {
             }
         }
     }
+
+
 
     static void addFile1() {
         //导入一些本地文件测试
@@ -99,4 +104,17 @@ public class Starter {
 
     }
 
+    static void addDocument(Scanner sc) {
+        String id, name, author, path;
+        System.out.println("请输入文档id:");
+        id = sc.nextLine();
+        System.out.println("请输入文档名:");
+        name = sc.nextLine();
+        System.out.println("请输入作者:");
+        author = sc.nextLine();
+        System.out.println("请输入文档路径:");
+        path = sc.nextLine();
+        Document doc = new Document(id, name, author, new Date().toString(), 0);
+        UploadController.getInstance().saveDocument(doc, path);
+    }
 }

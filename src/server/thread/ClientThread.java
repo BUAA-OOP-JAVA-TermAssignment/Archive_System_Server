@@ -96,8 +96,10 @@ public class ClientThread implements Runnable {
                 }
                 Thread.sleep(1000);
                 BaseRequst request = msgToRequst(msg);
-                assert request != null;
-                request.execute();
+
+                if (request != null) {
+                    request.execute();
+                }
             }
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
@@ -146,6 +148,7 @@ public class ClientThread implements Runnable {
                 return new UserListRequest(this);
 
             default:
+                System.out.println("undefined msg " + msg.getMsgCode());
                 return null;
         }
     }
